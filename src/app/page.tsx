@@ -5,20 +5,10 @@ import {
   ChevronRight,
   Target,
   Sun,
-  Home,
-  Building2,
-  Wrench,
-  Shield,
-  Heart,
   Phone,
-  Code2,
-  CheckCircle,
-  TrendingUp,
-  Users,
-  Zap,
+  Star,
 } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export const metadata: Metadata = {
@@ -27,323 +17,364 @@ export const metadata: Metadata = {
     "Full-service digital agency delivering exclusive, pre-qualified leads across solar, roofing, real estate, insurance, and more. 1,200+ businesses scaled.",
 };
 
-const services = [
+const featuredServices = [
   {
     icon: Target,
     title: "Lead Generation",
-    desc: "Precision multi-channel campaigns delivering high-intent prospects in real-time.",
+    desc: "Precision multi-channel campaigns, delivered in real-time.",
     href: "/services/lead-generation",
-    accent: "from-indigo-500 to-blue-600",
+    metric: "3.2× ROI",
   },
   {
     icon: Sun,
-    title: "Solar Services",
-    desc: "Exclusive solar leads and campaign management for installers nationwide.",
+    title: "Solar",
+    desc: "Exclusive solar leads for installers nationwide.",
     href: "/services/solar",
-    accent: "from-amber-500 to-orange-500",
-  },
-  {
-    icon: Home,
-    title: "Roofing Services",
-    desc: "Qualified roofing leads and targeted marketing for contractors.",
-    href: "/services/roofing",
-    accent: "from-rose-500 to-red-600",
-  },
-  {
-    icon: Building2,
-    title: "Real Estate",
-    desc: "Motivated buyer and seller leads for agents and brokerages.",
-    href: "/services/real-estate",
-    accent: "from-emerald-500 to-teal-600",
-  },
-  {
-    icon: Wrench,
-    title: "Home Improvement",
-    desc: "Connect with homeowners actively seeking renovation services.",
-    href: "/services/home-improvement",
-    accent: "from-violet-500 to-purple-600",
-  },
-  {
-    icon: Shield,
-    title: "Final Expense",
-    desc: "Exclusive final expense leads for agents targeting seniors.",
-    href: "/services/final-expense",
-    accent: "from-sky-500 to-cyan-600",
-  },
-  {
-    icon: Heart,
-    title: "Medicare",
-    desc: "Compliant Medicare leads and appointment setting for insurance agents.",
-    href: "/services/medicare",
-    accent: "from-pink-500 to-rose-600",
+    metric: "$12M/yr",
   },
   {
     icon: Phone,
-    title: "Virtual Call Center",
-    desc: "End-to-end call center buildout with trained agents and proven scripts.",
+    title: "Call Center Buildout",
+    desc: "Trained agents & scripts, live in 30 days.",
     href: "/services/virtual-call-center",
-    accent: "from-cyan-500 to-blue-500",
-  },
-  {
-    icon: Code2,
-    title: "Web Development",
-    desc: "High-converting websites and landing pages built for measurable results.",
-    href: "/services/web-development",
-    accent: "from-zinc-500 to-slate-600",
+    metric: "120+ built",
   },
 ];
 
-const whyPoints = [
-  "Exclusive leads — never resold to competitors",
-  "Industry-specific expertise across 9 verticals",
-  "Real-time delivery directly to your CRM",
-  "Dedicated account manager for every client",
-  "Proven scripts and sales playbooks included",
-  "No long-term contracts — results speak for themselves",
-];
-
-const processSteps = [
-  {
-    num: "01",
-    title: "Discovery Call",
-    desc: "We learn your business, goals, and target market to architect the right strategy.",
-    icon: Users,
-  },
-  {
-    num: "02",
-    title: "Strategy Design",
-    desc: "A custom plan built for your vertical, geography, and monthly volume goals.",
-    icon: Target,
-  },
-  {
-    num: "03",
-    title: "Launch & Execute",
-    desc: "Campaigns go live across the highest-performing channels for your industry.",
-    icon: Zap,
-  },
-  {
-    num: "04",
-    title: "Scale & Optimize",
-    desc: "Data-driven testing and optimization to lower costs and maximize ROI.",
-    icon: TrendingUp,
-  },
+const process = [
+  { num: "01", title: "Discover", desc: "We learn your business, goals, and target market." },
+  { num: "02", title: "Design", desc: "A custom plan built for your vertical and volume." },
+  { num: "03", title: "Launch", desc: "Campaigns go live across proven channels." },
+  { num: "04", title: "Scale", desc: "Data-driven optimization for maximum ROI." },
 ];
 
 export default function HomePage() {
   return (
     <div>
       {/* ════════════════ HERO ════════════════ */}
-      <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden pt-16">
-        {/* Background layers */}
-        <div className="dot-grid absolute inset-0" />
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 85% 65% at 50% 50%, transparent 35%, #09090b 100%)",
-          }}
-        />
-
-        {/* Glow orbs */}
-        <div className="glow-blob w-[700px] h-[700px] bg-brand/[0.09] top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%]" />
-        <div className="glow-blob w-[340px] h-[340px] bg-violet/[0.07] top-1/4 -right-24" />
-        <div className="glow-blob w-[260px] h-[260px] bg-cyan/[0.06] bottom-1/3 -left-16" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex flex-col items-center pt-12 pb-24">
-          {/* Badge */}
-          <div className="animate-fade-in inline-flex items-center gap-2.5 rounded-full border border-brand/25 bg-brand/[0.08] px-4 py-1.5 text-xs font-medium text-brand-light mb-10">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-light animate-pulse-dot" />
-            Premium Digital Agency — 1,200+ Clients Scaled
-          </div>
-
-          {/* Headline */}
-          <h1 className="animate-fade-in-up delay-100 font-black tracking-tight leading-[0.93] mb-7"
-              style={{ fontSize: "clamp(2.8rem, 8vw, 5.5rem)" }}>
-            <span className="gradient-text-white">We Generate</span>
-            <br />
-            <span className="gradient-text">Leads.</span>
-            <br />
-            <span className="gradient-text-white">You Close</span>
-            <br />
-            <span className="gradient-text">Deals.</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="animate-fade-in-up delay-200 text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed mb-10">
-            Full-service digital agency delivering exclusive, pre-qualified leads
-            across 9 high-value verticals. Backed by data. Built for scale.
-          </p>
-
-          {/* CTAs */}
-          <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-3 mb-16">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl bg-brand hover:bg-brand-dark text-white font-semibold text-[0.95rem] transition-all btn-shine shadow-[0_0_44px_rgba(79,70,229,0.38)] hover:shadow-[0_0_64px_rgba(79,70,229,0.56)]"
-            >
-              Book a Free Consultation <ArrowRight size={17} />
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-400 hover:text-zinc-100 text-[0.95rem] font-medium transition-all hover:bg-white/[0.04]"
-            >
-              Explore Services <ChevronRight size={17} />
-            </Link>
-          </div>
-
-          {/* Proof stats */}
-          <div className="animate-fade-in-up delay-400 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 pt-8 border-t border-white/[0.06] w-full max-w-2xl">
-            {[
-              { value: "1,200+", label: "Businesses Scaled" },
-              { value: "$40M+", label: "Revenue Generated" },
-              { value: "94%", label: "Client Retention" },
-              { value: "9", label: "Industries" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl font-black gradient-text">{stat.value}</div>
-                <div className="text-[11px] text-zinc-600 mt-0.5">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+      <section className="relative min-h-[100svh] flex items-start lg:items-center overflow-hidden pt-20 lg:pt-24">
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className="aurora-layer"
+            style={{ background: "radial-gradient(50% 50% at 50% 50%, #4f46e5 0%, transparent 70%)" }}
+          />
+          <div
+            className="aurora-layer"
+            style={{
+              background: "radial-gradient(50% 50% at 30% 70%, #7c3aed 0%, transparent 70%)",
+              animationDelay: "-9s",
+            }}
+          />
+          <div
+            className="aurora-layer"
+            style={{
+              background: "radial-gradient(50% 50% at 70% 30%, #06b6d4 0%, transparent 70%)",
+              animationDelay: "-17s",
+            }}
+          />
         </div>
+        <div className="dot-grid absolute inset-0 opacity-60" />
+        <div className="noise absolute inset-0" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-bg/10 via-bg/40 to-bg" />
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-25 animate-float">
-          <span className="text-[10px] text-zinc-500 tracking-wider">SCROLL</span>
-          <div className="w-px h-8 bg-gradient-to-b from-zinc-500 to-transparent" />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-14 lg:pb-8 grid lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-12 items-center">
+          <div>
+            <div className="animate-fade-in inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/[0.09] px-3.5 py-1 text-[11px] font-semibold text-emerald-300 mb-5">
+              <span className="relative flex w-1.5 h-1.5">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              </span>
+              LIVE · 234 leads delivered today
+            </div>
+
+            <h1 className="animate-fade-in-up delay-100 text-mega mb-5">
+              <span className="block gradient-text-white">We generate</span>
+              <span className="block gradient-text">leads.</span>
+              <span className="block text-outline">You close deals.</span>
+            </h1>
+
+            <p className="animate-fade-in-up delay-200 text-base md:text-lg text-zinc-400 max-w-xl leading-relaxed mb-7">
+              Full-service digital agency delivering exclusive, pre-qualified leads
+              across 9 high-value verticals.
+            </p>
+
+            <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-3 mb-8">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-brand hover:bg-brand-dark text-white font-semibold text-[0.9rem] transition-all btn-shine btn-shine-auto animate-glow-pulse"
+              >
+                Book a free consultation <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-400 hover:text-zinc-100 text-[0.9rem] font-medium transition-all hover:bg-white/[0.04]"
+              >
+                Explore services <ChevronRight size={16} />
+              </Link>
+            </div>
+
+            <div className="animate-fade-in-up delay-400 grid grid-cols-4 gap-3 sm:gap-5 pt-5 border-t border-white/[0.07]">
+              {[
+                { value: "$40M+", label: "Revenue" },
+                { value: "1,200+", label: "Clients" },
+                { value: "94%", label: "Retention" },
+                { value: "3.2×", label: "Avg. ROI" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-black gradient-text leading-none">{stat.value}</div>
+                  <div className="text-[9px] sm:text-[10px] text-zinc-500 mt-1.5 uppercase tracking-widest">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <AnimatedSection direction="right" delay={200} className="hidden lg:block">
+            <div className="relative aspect-square max-w-[460px] mx-auto">
+              {/* Soft orb backlight */}
+              <div
+                className="absolute inset-[12%] rounded-full blur-3xl animate-orb-pulse"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(79,70,229,0.5) 0%, rgba(124,58,237,0.25) 40%, transparent 70%)",
+                }}
+              />
+
+              <svg
+                viewBox="-240 -240 480 480"
+                className="relative w-full h-full"
+                aria-hidden="true"
+              >
+                <defs>
+                  <radialGradient id="coreGlow" cx="50%" cy="50%">
+                    <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.9" />
+                    <stop offset="55%" stopColor="#4f46e5" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#4f46e5" stopOpacity="0" />
+                  </radialGradient>
+                  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity="0.55" />
+                    <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.28" />
+                    <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
+                  </linearGradient>
+                  <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity="0" />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity="1" />
+                  </linearGradient>
+                  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" />
+                  </filter>
+                </defs>
+
+                {/* Core glow */}
+                <circle cx="0" cy="0" r="140" fill="url(#coreGlow)" />
+
+                {/* Outer static ring */}
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="200"
+                  fill="none"
+                  stroke="url(#ringGrad)"
+                  strokeWidth="1"
+                  strokeOpacity="0.5"
+                />
+
+                {/* Dashed ring */}
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="155"
+                  fill="none"
+                  stroke="url(#ringGrad)"
+                  strokeWidth="1"
+                  strokeDasharray="1 7"
+                />
+
+                {/* Middle dashed ring */}
+                <circle
+                  cx="0"
+                  cy="0"
+                  r="110"
+                  fill="none"
+                  stroke="url(#ringGrad)"
+                  strokeWidth="1"
+                  strokeDasharray="3 4"
+                />
+
+                {/* Innermost ring */}
+                <circle cx="0" cy="0" r="70" fill="none" stroke="#818cf8" strokeOpacity="0.3" strokeWidth="1" />
+
+                {/* Orbital nodes — 9 verticals */}
+                {[
+                  { r: 70, angle: 30, color: "#4f46e5" },
+                  { r: 70, angle: 150, color: "#f59e0b" },
+                  { r: 70, angle: 270, color: "#fb7185" },
+                  { r: 110, angle: 0, color: "#10b981" },
+                  { r: 110, angle: 110, color: "#a78bfa" },
+                  { r: 110, angle: 220, color: "#38bdf8" },
+                  { r: 155, angle: 55, color: "#f472b6" },
+                  { r: 155, angle: 175, color: "#06b6d4" },
+                  { r: 155, angle: 295, color: "#e4e4e7" },
+                ].map((n, i) => {
+                  const rad = (n.angle * Math.PI) / 180;
+                  const x = Math.cos(rad) * n.r;
+                  const y = Math.sin(rad) * n.r;
+                  return (
+                    <g key={i}>
+                      <circle cx={x} cy={y} r="10" fill={n.color} opacity="0.18" filter="url(#soft)" />
+                      <circle cx={x} cy={y} r="4" fill={n.color} />
+                    </g>
+                  );
+                })}
+
+                {/* Core dot (agency hub) */}
+                <circle cx="0" cy="0" r="26" fill="#4f46e5" opacity="0.18" filter="url(#soft)" />
+                <circle cx="0" cy="0" r="12" fill="#4f46e5" />
+                <circle cx="0" cy="0" r="7" fill="#a78bfa" />
+                <circle cx="0" cy="0" r="3" fill="#ffffff" />
+              </svg>
+
+              {/* Label pill */}
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-0 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-surface/80 backdrop-blur-sm px-3.5 py-1.5 text-[10px] font-semibold text-zinc-400 uppercase tracking-widest">
+                <span className="w-1 h-1 rounded-full bg-brand-light animate-pulse-dot" />
+                9 verticals · one engine
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* ════════════════ SERVICES GRID ════════════════ */}
-      <section className="py-28">
-        <div className="max-w-7xl mx-auto px-6">
-          <AnimatedSection className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-6">
-              What We Do
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight gradient-text-white mb-4">
-              Everything you need to grow
+      {/* ════════════════ MARQUEE ════════════════ */}
+      <section className="py-6 md:py-8 border-y border-white/[0.06] bg-surface/30 overflow-hidden">
+        <div className="marquee">
+          <div className="marquee-track">
+            {Array(2)
+              .fill([
+                "Solar",
+                "Roofing",
+                "Medicare",
+                "Real Estate",
+                "Home Improvement",
+                "Final Expense",
+                "Call Centers",
+                "Web Dev",
+                "$40M+ Revenue",
+                "1,200+ Clients",
+                "94% Retention",
+                "3.2× ROI",
+              ])
+              .flat()
+              .map((label, i) => (
+                <div key={i} className="flex items-center gap-10 text-2xl md:text-4xl font-black">
+                  <span className={i % 2 === 0 ? "gradient-text-white" : "text-outline"}>{label}</span>
+                  <span className="text-brand/50">✦</span>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════ BENTO — WHAT + PROOF ════════════════ */}
+      <section className="py-20 md:py-24 relative overflow-hidden">
+        <div className="glow-blob w-[480px] h-[480px] bg-brand/[0.07] top-0 -left-32" />
+        <div className="glow-blob w-[380px] h-[380px] bg-violet/[0.06] bottom-0 -right-24" />
+
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <AnimatedSection className="mb-10 md:mb-12 max-w-3xl">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-4">What we do</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[0.98]">
+              <span className="gradient-text-white">Lead-gen infrastructure for </span>
+              <span className="gradient-text">nine high-value verticals.</span>
             </h2>
-            <p className="text-lg text-zinc-400 max-w-xl mx-auto">
-              Nine specialized services engineered to generate leads, close deals, and
-              scale your business.
-            </p>
           </AnimatedSection>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {services.map((svc, i) => {
-              const Icon = svc.icon;
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {/* Hero stat tile */}
+            <AnimatedSection className="col-span-2 md:col-span-2 md:row-span-2">
+              <Link
+                href="/about"
+                className="group relative flex flex-col justify-end h-full min-h-[280px] md:min-h-[440px] p-7 md:p-10 rounded-3xl border border-white/[0.07] bg-gradient-to-br from-surface via-surface to-brand/[0.08] overflow-hidden card-hover"
+              >
+                <div className="absolute -right-24 -top-24 w-80 h-80 rounded-full bg-brand/[0.15] blur-3xl" />
+                <div className="absolute -left-10 -bottom-16 w-72 h-72 rounded-full bg-violet/[0.1] blur-3xl" />
+                <div className="relative">
+                  <div className="text-[5rem] md:text-[8rem] font-black gradient-text mb-3 leading-[0.85] tracking-tight">
+                    $40M+
+                  </div>
+                  <div className="text-lg md:text-xl font-bold text-zinc-100 mb-2">
+                    in client revenue generated
+                  </div>
+                  <div className="text-sm text-zinc-500 max-w-md leading-relaxed">
+                    Across 1,200+ businesses in 9 verticals. 94% retention. Backed by data.
+                  </div>
+                  <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light group-hover:gap-3 transition-all">
+                    About our approach <ArrowRight size={14} />
+                  </div>
+                </div>
+              </Link>
+            </AnimatedSection>
+
+            {/* Featured services */}
+            {featuredServices.map((s, i) => {
+              const Icon = s.icon;
               return (
-                <AnimatedSection
-                  key={svc.href}
-                  delay={Math.floor(i / 3) * 80 + (i % 3) * 45}
-                >
+                <AnimatedSection key={s.href} delay={i * 60} className="col-span-1">
                   <Link
-                    href={svc.href}
-                    className="group relative flex flex-col p-6 rounded-2xl border border-white/[0.07] bg-surface card-hover overflow-hidden"
+                    href={s.href}
+                    className="group relative flex flex-col justify-between h-full min-h-[210px] p-5 rounded-3xl border border-white/[0.07] bg-surface card-hover overflow-hidden"
                   >
-                    {/* Glow on hover */}
-                    <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
-                      style={{
-                        background:
-                          "radial-gradient(ellipse 90% 70% at 50% 110%, rgba(79,70,229,0.05), transparent)",
-                      }}
-                    />
-
-                    {/* Icon badge */}
-                    <div className="relative w-11 h-11 rounded-xl flex items-center justify-center mb-5">
-                      <div
-                        className={`absolute inset-0 rounded-xl bg-gradient-to-br ${svc.accent} opacity-[0.15]`}
-                      />
-                      <Icon size={21} className="relative z-10 text-white" />
+                    <div className="flex items-start justify-between">
+                      <div className="w-10 h-10 rounded-xl bg-brand/[0.12] border border-brand/20 flex items-center justify-center">
+                        <Icon size={18} className="text-brand-light" />
+                      </div>
+                      <span className="text-[10px] font-mono text-emerald-400 mt-2">● {s.metric}</span>
                     </div>
-
-                    <h3 className="font-semibold text-zinc-200 group-hover:text-white transition-colors mb-2">
-                      {svc.title}
-                    </h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed mb-5 flex-1">
-                      {svc.desc}
-                    </p>
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-brand-light group-hover:gap-2.5 transition-all duration-200">
-                      Learn more <ArrowRight size={12} />
+                    <div>
+                      <div className="font-bold text-zinc-100 mb-1">{s.title}</div>
+                      <div className="text-xs text-zinc-500 leading-relaxed">{s.desc}</div>
+                      <div className="mt-3 inline-flex items-center gap-1 text-[11px] font-semibold text-brand-light group-hover:gap-2 transition-all">
+                        Learn more <ArrowRight size={10} />
+                      </div>
                     </div>
                   </Link>
                 </AnimatedSection>
               );
             })}
-          </div>
 
-          <AnimatedSection className="mt-8 text-center">
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.08] hover:border-white/[0.15] text-zinc-400 hover:text-zinc-200 text-sm font-medium transition-all hover:bg-white/[0.04]"
-            >
-              View all services overview <ArrowRight size={14} />
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ════════════════ WHY CORD ════════════════ */}
-      <section className="py-28 relative overflow-hidden">
-        <div className="absolute inset-0 border-y border-white/[0.045]" />
-        <div className="glow-blob w-[420px] h-[420px] bg-brand/[0.07] top-1/2 -translate-y-1/2 -left-32" />
-
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-14 items-center">
-            {/* Left column */}
-            <AnimatedSection direction="left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-8">
-                Why Agencia Cord
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-8">
-                <span className="gradient-text-white">We don't just generate</span>
-                <br />
-                <span className="gradient-text-white">leads.</span>
-                <br />
-                <span className="gradient-text">We build pipelines.</span>
-              </h2>
-
-              <div className="flex gap-8 mb-10">
-                {[
-                  { val: "94%", label: "Retention rate", color: "border-brand" },
-                  { val: "3.2×", label: "Avg. ROI increase", color: "border-violet" },
-                  { val: "30d", label: "Time to results", color: "border-cyan" },
-                ].map((s) => (
-                  <div key={s.label} className={`pl-4 border-l-2 ${s.color}`}>
-                    <div className="text-[2.2rem] font-black gradient-text leading-none mb-1">
-                      {s.val}
-                    </div>
-                    <div className="text-xs text-zinc-500">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-
+            {/* View all tile */}
+            <AnimatedSection className="col-span-1">
               <Link
-                href="/about"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-400 hover:text-zinc-100 text-sm font-medium transition-all hover:bg-white/[0.04]"
+                href="/services"
+                className="group h-full min-h-[210px] p-5 rounded-3xl border border-dashed border-white/[0.12] hover:border-brand/40 bg-surface/40 hover:bg-surface flex flex-col justify-center items-center text-center transition-all"
               >
-                About our approach <ArrowRight size={14} />
+                <div className="text-5xl md:text-6xl font-black gradient-text mb-2 leading-none">9</div>
+                <div className="text-sm font-semibold text-zinc-300 mb-1">verticals</div>
+                <div className="inline-flex items-center gap-1 text-[11px] text-brand-light group-hover:gap-2 transition-all mt-2">
+                  See all <ArrowRight size={11} />
+                </div>
               </Link>
             </AnimatedSection>
 
-            {/* Right column — checklist */}
-            <AnimatedSection direction="right" delay={100}>
-              <div className="flex flex-col gap-2.5">
-                {whyPoints.map((point, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3.5 p-4 rounded-xl border border-white/[0.06] bg-surface/60 hover:border-brand/20 hover:bg-surface transition-all group cursor-default"
-                  >
-                    <CheckCircle
-                      size={16}
-                      className="text-brand-light flex-shrink-0 mt-0.5 group-hover:text-brand transition-colors"
-                    />
-                    <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors">
-                      {point}
-                    </span>
+            {/* Testimonial tile */}
+            <AnimatedSection className="col-span-2 md:col-span-2">
+              <div className="h-full min-h-[210px] p-7 rounded-3xl border border-white/[0.07] bg-surface flex flex-col justify-between">
+                <div className="flex gap-0.5 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} className="fill-amber text-amber" />
+                  ))}
+                </div>
+                <p className="text-base md:text-lg text-zinc-200 leading-relaxed font-medium italic mb-4">
+                  &ldquo;Cord 4&times;&apos;d our pipeline in 90 days. Best agency
+                  decision we&apos;ve made all year.&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-violet flex items-center justify-center text-white font-bold text-sm">
+                    ML
                   </div>
-                ))}
+                  <div>
+                    <div className="text-sm font-semibold text-zinc-200">Marcus Lopez</div>
+                    <div className="text-[11px] text-zinc-500">Solar Installer · Phoenix, AZ</div>
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
           </div>
@@ -351,46 +382,35 @@ export default function HomePage() {
       </section>
 
       {/* ════════════════ PROCESS ════════════════ */}
-      <section className="py-28 relative overflow-hidden">
-        <div className="line-grid absolute inset-0" />
-        <div className="glow-blob w-[500px] h-[500px] bg-brand/[0.065] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <section className="py-20 md:py-24 relative overflow-hidden border-t border-white/[0.055]">
+        <div className="line-grid absolute inset-0 opacity-40" />
+        <div className="glow-blob w-[500px] h-[500px] bg-violet/[0.07] top-1/2 right-0 -translate-y-1/2" />
 
-        <div className="relative max-w-7xl mx-auto px-6">
-          <AnimatedSection className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-6">
-              How We Work
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight gradient-text-white mb-4">
-              From zero to pipeline in 30 days
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <AnimatedSection className="mb-12 max-w-3xl">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-4">How we work</div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[0.98]">
+              <span className="gradient-text-white">Zero to pipeline </span>
+              <span className="gradient-text">in 30 days.</span>
             </h2>
-            <p className="text-lg text-zinc-400 max-w-lg mx-auto">
-              Our four-step framework gets your lead generation engine running fast.
-            </p>
           </AnimatedSection>
 
-          <div className="relative">
-            {/* Connector line */}
-            <div className="hidden lg:block absolute top-[2.35rem] left-[calc(12.5%+1.5rem)] right-[calc(12.5%+1.5rem)] h-px bg-gradient-to-r from-transparent via-brand/22 to-transparent" />
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {processSteps.map((step, i) => (
-                <AnimatedSection key={i} delay={i * 90}>
-                  <div className="group p-6 rounded-2xl border border-white/[0.07] bg-surface hover:border-brand/25 transition-all">
-                    <div className="w-12 h-12 rounded-full border border-brand/30 bg-brand/[0.08] flex items-center justify-center mb-5 group-hover:bg-brand/[0.15] transition-colors">
-                      <span className="text-sm font-bold text-brand-light">{step.num}</span>
-                    </div>
-                    <h3 className="font-semibold text-zinc-200 mb-2.5">{step.title}</h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed">{step.desc}</p>
+          <div className="grid md:grid-cols-4 gap-8 md:gap-6 relative">
+            <div className="hidden md:block absolute top-6 left-12 right-12 h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent" />
+            {process.map((p, i) => (
+              <AnimatedSection key={i} delay={i * 80}>
+                <div className="relative">
+                  <div className="relative w-12 h-12 rounded-full border border-brand/40 bg-bg flex items-center justify-center mb-4 z-10">
+                    <span className="text-sm font-bold text-brand-light">{p.num}</span>
                   </div>
-                </AnimatedSection>
-              ))}
-            </div>
+                  <div className="font-bold text-zinc-100 text-lg mb-1.5">{p.title}</div>
+                  <div className="text-sm text-zinc-500 leading-relaxed">{p.desc}</div>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* ════════════════ TESTIMONIALS ════════════════ */}
-      <TestimonialsSection />
 
       {/* ════════════════ CTA ════════════════ */}
       <CTASection />
