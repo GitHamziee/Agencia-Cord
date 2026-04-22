@@ -362,7 +362,7 @@ export default function RealEstatePage() {
                         </div>
                       )}
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black tracking-tight text-white">
+                        <span className="text-5xl font-black tracking-tight text-zinc-100">
                           {tier.price}
                         </span>
                         <span className="text-sm text-zinc-400">{tier.priceSuffix}</span>

@@ -30,16 +30,16 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <span className="relative w-9 h-9 rounded-lg overflow-hidden bg-white shadow-[0_0_14px_rgba(79,70,229,0.35)]">
+              <span className="relative w-9 h-9 flex items-center justify-center">
                 <Image
                   src={siteConfig.logo.src}
                   alt={siteConfig.logo.alt}
                   fill
                   sizes="36px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </span>
-              <span className="font-bold text-[1.05rem] tracking-tight text-white">{siteConfig.brand}</span>
+              <span className="font-bold text-[1.05rem] tracking-tight text-zinc-100">{siteConfig.brand}</span>
             </Link>
             <p className="text-sm text-zinc-500 leading-relaxed mb-6 max-w-xs">
               Premium digital agency helping businesses scale through expert lead generation across 9 high-value verticals.

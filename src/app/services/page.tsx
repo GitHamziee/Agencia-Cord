@@ -166,13 +166,13 @@ export default function ServicesPage() {
                       <div
                         className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${svc.accent} opacity-[0.15]`}
                       />
-                      <Icon size={26} className="relative z-10 text-white" />
+                      <Icon size={26} className="relative z-10 text-zinc-100" />
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2.5 mb-1">
-                        <h2 className="text-lg font-bold text-zinc-200 group-hover:text-white transition-colors">
+                        <h2 className="text-lg font-bold text-zinc-200 group-hover:text-zinc-100 transition-colors">
                           {svc.title}
                         </h2>
                         <span className="px-2 py-0.5 rounded-md border border-white/[0.06] bg-white/[0.03] text-[10px] text-zinc-600">

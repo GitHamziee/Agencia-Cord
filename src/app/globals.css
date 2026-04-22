@@ -156,8 +156,12 @@ body {
    existing pages need zero changes. Kept in one block for clarity.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* Text: white + zinc scale → theme fg scale */
-[data-theme="light"] .text-white { color: var(--color-fg); }
+/* Text: zinc scale → theme fg scale.
+   NOTE: .text-white is intentionally NOT remapped — every usage sits on a
+   colored/gradient background (bg-brand, bg-gradient-to-r, etc.) that stays
+   dark in both themes, so the text must remain white. Places that need
+   theme-adaptive text use text-zinc-100 (below) or .gradient-text-white. */
+[data-theme="light"] .text-zinc-50  { color: #09090b; }
 [data-theme="light"] .text-zinc-100 { color: #18181b; }
 [data-theme="light"] .text-zinc-200 { color: #27272a; }
 [data-theme="light"] .text-zinc-300 { color: #3f3f46; }

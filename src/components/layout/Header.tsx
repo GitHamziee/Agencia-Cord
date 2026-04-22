@@ -54,17 +54,17 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <span className="relative w-9 h-9 rounded-lg overflow-hidden bg-white shadow-[0_0_16px_rgba(79,70,229,0.4)]">
+          <span className="relative w-9 h-9 flex items-center justify-center">
             <Image
               src={siteConfig.logo.src}
               alt={siteConfig.logo.alt}
               fill
               sizes="36px"
               priority
-              className="object-cover"
+              className="object-contain"
             />
           </span>
-          <span className="font-bold text-[1.05rem] tracking-tight text-white">
+          <span className="font-bold text-[1.05rem] tracking-tight text-zinc-100">
             {siteConfig.brand}
           </span>
         </Link>
@@ -77,7 +77,7 @@ export default function Header() {
               href={link.href}
               className={`px-3.5 py-2 rounded-lg text-sm transition-colors ${
                 pathname === link.href
-                  ? "text-white bg-white/[0.07]"
+                  ? "text-zinc-100 bg-white/[0.07]"
                   : "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]"
               }`}
             >
@@ -94,7 +94,7 @@ export default function Header() {
             <button
               className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm transition-colors ${
                 pathname.startsWith("/services")
-                  ? "text-white bg-white/[0.07]"
+                  ? "text-zinc-100 bg-white/[0.07]"
                   : "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]"
               }`}
             >
@@ -122,7 +122,7 @@ export default function Header() {
                       className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.055] transition-all group"
                     >
                       <div>
-                        <div className="font-medium text-zinc-200 group-hover:text-white transition-colors">
+                        <div className="font-medium text-zinc-200 group-hover:text-zinc-100 transition-colors">
                           {s.name}
                         </div>
                         <div className="text-xs text-zinc-500 mt-0.5">{s.desc}</div>

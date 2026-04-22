@@ -189,7 +189,7 @@ export default function PricingPage() {
               return (
                 <AnimatedSection key={tier.name} delay={i * 90}>
                   <div
-                    className={`relative h-full flex flex-col p-7 md:p-8 rounded-3xl border bg-gradient-to-b ${tier.accent} backdrop-blur-sm overflow-hidden transition-all ${
+                    className={`relative h-full flex flex-col p-7 md:p-8 rounded-3xl border bg-gradient-to-b ${tier.accent} backdrop-blur-sm transition-all ${
                       tier.featured
                         ? "border-amber-500/30 shadow-[0_24px_64px_rgba(245,158,11,0.12)] md:-translate-y-4"
                         : "border-white/[0.08] card-hover"
@@ -304,7 +304,7 @@ export default function PricingPage() {
               </div>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-300 hover:text-white text-sm font-medium transition-all hover:bg-white/[0.04]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-300 hover:text-zinc-100 text-sm font-medium transition-all hover:bg-white/[0.04]"
               >
                 Not sure which fits? Talk to us <ArrowRight size={13} />
               </Link>

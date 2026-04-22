@@ -22,7 +22,7 @@ export default function ThemeToggle({
         onClick={toggleTheme}
         aria-label={label}
         title={label}
-        className={`flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:text-white hover:bg-white/[0.07] transition-colors text-sm ${className}`}
+        className={`flex items-center gap-2 px-3 py-2 rounded-xl border border-white/[0.08] bg-white/[0.04] text-zinc-300 hover:text-zinc-100 hover:bg-white/[0.07] transition-colors text-sm ${className}`}
       >
         {isDark ? <Sun size={15} /> : <Moon size={15} />}
         <span>{isDark ? "Light mode" : "Dark mode"}</span>
