@@ -8,7 +8,7 @@ export const siteConfig = {
   brand: "CORD",
 
   logo: {
-    src: "/logo.jpeg",
+    src: "/logo.png",
     alt: "Agencia Cord logo",
   },
 
