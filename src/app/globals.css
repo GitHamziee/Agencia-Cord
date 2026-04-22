@@ -77,30 +77,30 @@
   color-scheme: light;
 
   --color-bg: #ffffff;
-  --color-surface: #f6f6f8;
-  --color-surface-2: #ececf0;
-  --color-surface-3: #e2e2e8;
+  --color-surface: #f3f3f7;
+  --color-surface-2: #e6e6ed;
+  --color-surface-3: #d7d7e0;
 
   --color-fg: #09090b;
-  --color-fg-muted: #52525b;
-  --color-fg-subtle: #71717a;
+  --color-fg-muted: #3f3f46;
+  --color-fg-subtle: #52525b;
 
-  --color-border: rgb(9 9 11 / 0.10);
-  --color-border-strong: rgb(9 9 11 / 0.18);
+  --color-border: rgb(9 9 11 / 0.14);
+  --color-border-strong: rgb(9 9 11 / 0.24);
 
-  --overlay-low: rgb(9 9 11 / 0.035);
-  --overlay-mid: rgb(9 9 11 / 0.06);
-  --overlay-high: rgb(9 9 11 / 0.10);
+  --overlay-low: rgb(9 9 11 / 0.045);
+  --overlay-mid: rgb(9 9 11 / 0.08);
+  --overlay-high: rgb(9 9 11 / 0.12);
 
-  --shadow-card: 0 20px 48px -12px rgb(15 15 25 / 0.14);
-  --shadow-panel: 0 24px 64px rgb(15 15 25 / 0.14);
+  --shadow-card: 0 16px 40px -14px rgb(20 20 32 / 0.18);
+  --shadow-panel: 0 24px 64px rgb(20 20 32 / 0.18);
 
   --selection-bg: rgb(79 70 229 / 0.22);
   --selection-fg: #0b0b12;
 
-  --scrollbar-thumb: #c9c9d1;
+  --scrollbar-thumb: #bfbfc8;
 
-  --stroke-tint: rgb(9 9 11 / 0.28);
+  --stroke-tint: rgb(9 9 11 / 0.38);
 
   --aurora-fade-top: rgb(255 255 255 / 0);
   --aurora-fade-bot: rgb(255 255 255 / 1);
@@ -156,7 +156,7 @@ body {
    existing pages need zero changes. Kept in one block for clarity.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* Text: zinc scale → theme fg scale.
+/* Text: zinc scale → deeper grays for readable contrast on white.
    NOTE: .text-white is intentionally NOT remapped — every usage sits on a
    colored/gradient background (bg-brand, bg-gradient-to-r, etc.) that stays
    dark in both themes, so the text must remain white. Places that need
@@ -164,46 +164,75 @@ body {
 [data-theme="light"] .text-zinc-50  { color: #09090b; }
 [data-theme="light"] .text-zinc-100 { color: #18181b; }
 [data-theme="light"] .text-zinc-200 { color: #27272a; }
-[data-theme="light"] .text-zinc-300 { color: #3f3f46; }
-[data-theme="light"] .text-zinc-400 { color: #52525b; }
-[data-theme="light"] .text-zinc-500 { color: #71717a; }
-[data-theme="light"] .text-zinc-600 { color: #a1a1aa; }
+[data-theme="light"] .text-zinc-300 { color: #2e2e33; }
+[data-theme="light"] .text-zinc-400 { color: #3f3f46; }
+[data-theme="light"] .text-zinc-500 { color: #52525b; }
+[data-theme="light"] .text-zinc-600 { color: #6b6b75; }
+
+/* Brand accents (learn-more links, badges). #818cf8 is pale on white. */
+[data-theme="light"] .text-brand-light { color: #4f46e5; }
+[data-theme="light"] .text-violet-light { color: #6d28d9; }
+[data-theme="light"] .text-cyan-light { color: #0e7490; }
+
+/* Colored accent text used on dark cards — tune down for white bg readability */
+[data-theme="light"] .text-emerald-300 { color: #047857; }
+[data-theme="light"] .text-emerald-400 { color: #059669; }
+[data-theme="light"] .text-amber-300   { color: #b45309; }
+[data-theme="light"] .text-amber-400   { color: #b45309; }
+[data-theme="light"] .text-rose-300    { color: #be123c; }
+[data-theme="light"] .text-sky-300     { color: #0369a1; }
+[data-theme="light"] .text-violet-300  { color: #6d28d9; }
+[data-theme="light"] .text-pink-300    { color: #be185d; }
+[data-theme="light"] .text-cyan-300    { color: #0e7490; }
 
 /* Placeholder colors inside inputs */
 [data-theme="light"] ::placeholder { color: #a1a1aa; }
 
-/* White/alpha backgrounds → black/alpha equivalents in light */
+/* White/alpha backgrounds → darker black/alpha equivalents in light (more visible tiles) */
 [data-theme="light"] [class*="bg-white/"] {
   background-color: var(--overlay-low);
 }
-[data-theme="light"] .bg-white\/\[0\.03\]  { background-color: rgb(9 9 11 / 0.035); }
-[data-theme="light"] .bg-white\/\[0\.04\]  { background-color: rgb(9 9 11 / 0.04); }
-[data-theme="light"] .bg-white\/\[0\.05\]  { background-color: rgb(9 9 11 / 0.05); }
-[data-theme="light"] .bg-white\/\[0\.055\] { background-color: rgb(9 9 11 / 0.055); }
-[data-theme="light"] .bg-white\/\[0\.07\]  { background-color: rgb(9 9 11 / 0.07); }
-[data-theme="light"] .bg-white\/\[0\.08\]  { background-color: rgb(9 9 11 / 0.08); }
-[data-theme="light"] .bg-white\/\[0\.10\]  { background-color: rgb(9 9 11 / 0.10); }
+[data-theme="light"] .bg-white\/\[0\.015\] { background-color: rgb(9 9 11 / 0.03); }
+[data-theme="light"] .bg-white\/\[0\.03\]  { background-color: rgb(9 9 11 / 0.045); }
+[data-theme="light"] .bg-white\/\[0\.04\]  { background-color: rgb(9 9 11 / 0.055); }
+[data-theme="light"] .bg-white\/\[0\.05\]  { background-color: rgb(9 9 11 / 0.065); }
+[data-theme="light"] .bg-white\/\[0\.055\] { background-color: rgb(9 9 11 / 0.07); }
+[data-theme="light"] .bg-white\/\[0\.07\]  { background-color: rgb(9 9 11 / 0.085); }
+[data-theme="light"] .bg-white\/\[0\.08\]  { background-color: rgb(9 9 11 / 0.095); }
+[data-theme="light"] .bg-white\/\[0\.10\]  { background-color: rgb(9 9 11 / 0.11); }
 
-/* White/alpha borders → black/alpha equivalents in light */
+/* White/alpha borders → darker black/alpha for visible card outlines */
 [data-theme="light"] [class*="border-white/"] {
   border-color: var(--color-border);
 }
-[data-theme="light"] .border-white\/\[0\.055\] { border-color: rgb(9 9 11 / 0.07); }
-[data-theme="light"] .border-white\/\[0\.06\]  { border-color: rgb(9 9 11 / 0.08); }
-[data-theme="light"] .border-white\/\[0\.07\]  { border-color: rgb(9 9 11 / 0.09); }
-[data-theme="light"] .border-white\/\[0\.08\]  { border-color: rgb(9 9 11 / 0.10); }
-[data-theme="light"] .border-white\/\[0\.09\]  { border-color: rgb(9 9 11 / 0.11); }
-[data-theme="light"] .border-white\/\[0\.10\]  { border-color: rgb(9 9 11 / 0.12); }
-[data-theme="light"] .border-white\/\[0\.18\]  { border-color: rgb(9 9 11 / 0.18); }
-[data-theme="light"] .border-white\/\[0\.20\]  { border-color: rgb(9 9 11 / 0.22); }
+[data-theme="light"] .border-white\/\[0\.055\] { border-color: rgb(9 9 11 / 0.13); }
+[data-theme="light"] .border-white\/\[0\.06\]  { border-color: rgb(9 9 11 / 0.13); }
+[data-theme="light"] .border-white\/\[0\.07\]  { border-color: rgb(9 9 11 / 0.14); }
+[data-theme="light"] .border-white\/\[0\.08\]  { border-color: rgb(9 9 11 / 0.15); }
+[data-theme="light"] .border-white\/\[0\.09\]  { border-color: rgb(9 9 11 / 0.16); }
+[data-theme="light"] .border-white\/\[0\.10\]  { border-color: rgb(9 9 11 / 0.17); }
+[data-theme="light"] .border-white\/\[0\.12\]  { border-color: rgb(9 9 11 / 0.20); }
+[data-theme="light"] .border-white\/\[0\.14\]  { border-color: rgb(9 9 11 / 0.22); }
+[data-theme="light"] .border-white\/\[0\.18\]  { border-color: rgb(9 9 11 / 0.26); }
+[data-theme="light"] .border-white\/\[0\.20\]  { border-color: rgb(9 9 11 / 0.28); }
 
-/* Surface w/ alpha (headers, dropdowns) — soften for light */
-[data-theme="light"] .bg-bg\/88        { background-color: rgb(255 255 255 / 0.88); }
-[data-theme="light"] .bg-surface\/30   { background-color: rgb(246 246 248 / 0.40); }
-[data-theme="light"] .bg-surface\/40   { background-color: rgb(246 246 248 / 0.55); }
-[data-theme="light"] .bg-surface\/80   { background-color: rgb(246 246 248 / 0.88); }
-[data-theme="light"] .bg-surface\/96   { background-color: rgb(246 246 248 / 0.96); }
-[data-theme="light"] .bg-surface\/97   { background-color: rgb(246 246 248 / 0.97); }
+/* Surface w/ alpha (headers, dropdowns) — use surface token, more opaque */
+[data-theme="light"] .bg-bg\/88        { background-color: rgb(255 255 255 / 0.96); }
+[data-theme="light"] .bg-surface\/30   { background-color: rgb(243 243 247 / 0.65); }
+[data-theme="light"] .bg-surface\/40   { background-color: rgb(243 243 247 / 0.75); }
+[data-theme="light"] .bg-surface\/80   { background-color: rgb(243 243 247 / 0.92); }
+[data-theme="light"] .bg-surface\/96   { background-color: rgb(243 243 247 / 0.98); }
+[data-theme="light"] .bg-surface\/97   { background-color: rgb(243 243 247 / 0.98); }
+
+/* Aurora + glow blobs are calibrated for dark bg; soften on white so they
+   don't dominate the section as pastel haze. */
+[data-theme="light"] .aurora-layer { opacity: 0.42; }
+[data-theme="light"] .glow-blob    { opacity: 0.55; }
+
+/* Dot / line grids — the stroke-tint bump already darkens them, but cap
+   opacity so they read as background texture, not foreground noise. */
+[data-theme="light"] .dot-grid  { opacity: 0.7; }
+[data-theme="light"] .line-grid { opacity: 0.55; }
 
 /* Marquee mask uses #000 — swap for light so fade still reads */
 [data-theme="light"] .marquee {
@@ -217,7 +246,35 @@ body {
 
 /* Gradient text that uses pure white → use fg so it still reads */
 [data-theme="light"] .gradient-text-white {
-  background: linear-gradient(180deg, #09090b 0%, rgb(9 9 11 / 0.62) 100%);
+  background: linear-gradient(180deg, #09090b 0%, rgb(9 9 11 / 0.68) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Brand gradient text — pale indigo/cyan washes out on white. Use deeper tones. */
+[data-theme="light"] .gradient-text {
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 55%, #0e7490 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Warm / green gradients also lighten too much on white — nudge darker. */
+[data-theme="light"] .gradient-text-warm {
+  background: linear-gradient(135deg, #d97706 0%, #c2410c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .gradient-text-solar {
+  background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #92400e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .gradient-text-green {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -256,6 +313,19 @@ body {
 
 .gradient-text-green {
   background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-lilac {
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .gradient-text-lilac {
+  background: linear-gradient(135deg, #6d28d9 0%, #a21caf 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

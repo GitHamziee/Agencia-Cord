@@ -43,12 +43,7 @@ export default function HomeImprovementPage() {
           <h1 className="animate-fade-in-up delay-100 text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight mb-6">
             <span className="gradient-text-white">Connect with homeowners</span>
             <br />
-            <span style={{
-              background: "linear-gradient(135deg, #a78bfa 0%, #c084fc 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}>ready to invest.</span>
+            <span className="gradient-text-lilac">ready to invest.</span>
           </h1>
           <p className="animate-fade-in-up delay-200 text-xl text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
             Stop chasing lukewarm leads. We connect you with homeowners who have a
@@ -77,12 +72,7 @@ export default function HomeImprovementPage() {
           <div className="animate-fade-in-up delay-400 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/[0.07]">
             {stats.map((s, i) => (
               <div key={i} className="bg-surface/80 py-6 px-4 text-center">
-                <div className="text-3xl font-black mb-1" style={{
-                  background: "linear-gradient(135deg, #a78bfa, #c084fc)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}>
+                <div className="text-3xl font-black mb-1 gradient-text-lilac">
                   {s.value}
                 </div>
                 <div className="text-xs text-zinc-500">{s.label}</div>

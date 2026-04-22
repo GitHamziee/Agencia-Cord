@@ -548,7 +548,7 @@ export default function SolarPage() {
                             background:
                               "linear-gradient(180deg, rgba(245,158,11,0.08), rgba(234,88,12,0.02))",
                           }
-                        : { background: "rgb(17 17 22)" }
+                        : { background: "var(--color-surface)" }
                     }
                   >
                     {tier.featured && (
