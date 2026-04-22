@@ -216,18 +216,27 @@ body {
 [data-theme="light"] .border-white\/\[0\.18\]  { border-color: rgb(9 9 11 / 0.26); }
 [data-theme="light"] .border-white\/\[0\.20\]  { border-color: rgb(9 9 11 / 0.28); }
 
-/* Surface w/ alpha (headers, dropdowns) — use surface token, more opaque */
-[data-theme="light"] .bg-bg\/88        { background-color: rgb(255 255 255 / 0.96); }
+/* Surface w/ alpha (dropdowns, soft section shading) — use surface token.
+   Note: .bg-bg/88 (header) gets a stronger rule further below so it's fully
+   opaque and drops backdrop-blur, avoiding aurora bleed-through. */
 [data-theme="light"] .bg-surface\/30   { background-color: rgb(243 243 247 / 0.65); }
 [data-theme="light"] .bg-surface\/40   { background-color: rgb(243 243 247 / 0.75); }
 [data-theme="light"] .bg-surface\/80   { background-color: rgb(243 243 247 / 0.92); }
 [data-theme="light"] .bg-surface\/96   { background-color: rgb(243 243 247 / 0.98); }
 [data-theme="light"] .bg-surface\/97   { background-color: rgb(243 243 247 / 0.98); }
 
-/* Aurora + glow blobs are calibrated for dark bg; soften on white so they
-   don't dominate the section as pastel haze. */
-[data-theme="light"] .aurora-layer { opacity: 0.42; }
-[data-theme="light"] .glow-blob    { opacity: 0.55; }
+/* Aurora + glow blobs are calibrated for dark bg; strongly soften on white
+   so they read as subtle tint, not a purple fog that bleeds into everything. */
+[data-theme="light"] .aurora-layer { opacity: 0.18; }
+[data-theme="light"] .glow-blob    { opacity: 0.32; }
+
+/* Header: drop backdrop-blur in light mode so the navbar stops averaging
+   aurora colors from behind, and make the overlay fully opaque. */
+[data-theme="light"] .bg-bg\/88 {
+  background-color: rgb(255 255 255);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
 
 /* Dot / line grids — the stroke-tint bump already darkens them, but cap
    opacity so they read as background texture, not foreground noise. */
@@ -354,6 +363,28 @@ body {
   pointer-events: none;
   z-index: 0;
 }
+
+/* ─── ORBITAL BACKLIGHT ─── (hero orbital graphic) */
+.orbital-backlight {
+  background: radial-gradient(
+    circle,
+    rgba(79, 70, 229, 0.5) 0%,
+    rgba(124, 58, 237, 0.25) 40%,
+    transparent 70%
+  );
+}
+[data-theme="light"] .orbital-backlight {
+  background: radial-gradient(
+    circle,
+    rgba(79, 70, 229, 0.12) 0%,
+    rgba(124, 58, 237, 0.06) 45%,
+    transparent 70%
+  );
+}
+
+/* Core glow fill inside the hero orbital SVG — dim in light mode so the
+   middle doesn't read as a saturated purple disk. */
+[data-theme="light"] .orbital-core-glow { opacity: 0.3; }
 
 /* ═══════════════════════════════════════════════════════════════════
    KEYFRAMES

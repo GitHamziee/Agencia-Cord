@@ -129,14 +129,8 @@ export default function HomePage() {
 
           <AnimatedSection direction="right" delay={200} className="hidden lg:block">
             <div className="relative aspect-square max-w-[460px] mx-auto">
-              {/* Soft orb backlight */}
-              <div
-                className="absolute inset-[12%] rounded-full blur-3xl animate-orb-pulse"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(79,70,229,0.5) 0%, rgba(124,58,237,0.25) 40%, transparent 70%)",
-                }}
-              />
+              {/* Soft orb backlight — theme-aware purple halo */}
+              <div className="absolute inset-[12%] rounded-full blur-3xl animate-orb-pulse orbital-backlight" />
 
               <svg
                 viewBox="-240 -240 480 480"
@@ -164,7 +158,7 @@ export default function HomePage() {
                 </defs>
 
                 {/* Core glow */}
-                <circle cx="0" cy="0" r="140" fill="url(#coreGlow)" />
+                <circle cx="0" cy="0" r="140" fill="url(#coreGlow)" className="orbital-core-glow" />
 
                 {/* Outer static ring */}
                 <circle
