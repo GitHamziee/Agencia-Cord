@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import { siteConfig } from "@/lib/siteConfig";
 
 const services = [
   { name: "Lead Generation", href: "/services/lead-generation", desc: "Multi-channel lead campaigns" },
@@ -20,6 +23,7 @@ const services = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -50,11 +54,18 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-violet flex items-center justify-center shadow-[0_0_16px_rgba(79,70,229,0.4)]">
-            <span className="text-white font-black text-sm tracking-tight">C</span>
-          </div>
+          <span className="relative w-9 h-9 rounded-lg overflow-hidden bg-white shadow-[0_0_16px_rgba(79,70,229,0.4)]">
+            <Image
+              src={siteConfig.logo.src}
+              alt={siteConfig.logo.alt}
+              fill
+              sizes="36px"
+              priority
+              className="object-cover"
+            />
+          </span>
           <span className="font-bold text-[1.05rem] tracking-tight text-white">
-            CORD
+            {siteConfig.brand}
           </span>
         </Link>
 
@@ -94,48 +105,51 @@ export default function Header() {
               />
             </button>
 
-            {/* Dropdown panel */}
+            {/* Dropdown panel — outer wrapper holds invisible hover bridge (pt-2.5) so the cursor can travel from button to panel without leaving the hover zone */}
             <div
-              className={`absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-72 rounded-2xl border border-white/[0.08] bg-surface/96 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.5)] p-2 transition-all duration-200 ${
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-2.5 transition-all duration-200 ${
                 servicesOpen
                   ? "opacity-100 translate-y-0 pointer-events-auto"
                   : "opacity-0 -translate-y-1 pointer-events-none"
               }`}
             >
-              <div className="grid gap-0.5">
-                {services.map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.055] transition-all group"
-                  >
-                    <div>
-                      <div className="font-medium text-zinc-200 group-hover:text-white transition-colors">
-                        {s.name}
+              <div className="w-72 rounded-2xl border border-white/[0.08] bg-surface/96 backdrop-blur-2xl shadow-[0_24px_64px_rgba(0,0,0,0.5)] p-2">
+                <div className="grid gap-0.5">
+                  {services.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-sm text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.055] transition-all group"
+                    >
+                      <div>
+                        <div className="font-medium text-zinc-200 group-hover:text-white transition-colors">
+                          {s.name}
+                        </div>
+                        <div className="text-xs text-zinc-500 mt-0.5">{s.desc}</div>
                       </div>
-                      <div className="text-xs text-zinc-500 mt-0.5">{s.desc}</div>
-                    </div>
-                    <ArrowRight
-                      size={13}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-brand-light"
-                    />
+                      <ArrowRight
+                        size={13}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 text-brand-light"
+                      />
+                    </Link>
+                  ))}
+                </div>
+                <div className="mt-2 pt-2 border-t border-white/[0.06]">
+                  <Link
+                    href="/services"
+                    className="flex items-center justify-center gap-1.5 py-2 text-xs text-zinc-500 hover:text-brand-light transition-colors"
+                  >
+                    View all services <ArrowRight size={11} />
                   </Link>
-                ))}
-              </div>
-              <div className="mt-2 pt-2 border-t border-white/[0.06]">
-                <Link
-                  href="/services"
-                  className="flex items-center justify-center gap-1.5 py-2 text-xs text-zinc-500 hover:text-brand-light transition-colors"
-                >
-                  View all services <ArrowRight size={11} />
-                </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         {/* ── Desktop CTA ── */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2">
+          <ThemeToggle />
           <Link
             href="/contact"
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-brand hover:bg-brand-dark text-white text-sm font-semibold transition-all btn-shine shadow-[0_0_22px_rgba(79,70,229,0.28)] hover:shadow-[0_0_34px_rgba(79,70,229,0.48)]"
@@ -144,14 +158,17 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* ── Mobile toggle ── */}
-        <button
-          className="md:hidden p-2 -mr-1 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.05] transition-colors"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* ── Mobile actions ── */}
+        <div className="md:hidden flex items-center gap-1 -mr-1">
+          <ThemeToggle />
+          <button
+            className="p-2 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.05] transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </nav>
 
       {/* ── Mobile Menu ── */}

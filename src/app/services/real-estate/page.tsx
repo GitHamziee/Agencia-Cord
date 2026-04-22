@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Building2, CheckCircle, TrendingUp, Users, Home, Star } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  Home,
+  Star,
+  Zap,
+  Sparkles,
+} from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
@@ -57,6 +67,70 @@ const features = [
   "Monthly market data reports for lead areas",
   "Listing presentation support materials",
   "24/7 lead delivery — no business hours delays",
+];
+
+/* ── Pricing tiers. Edit values here to update the pricing section. ── */
+const pricingTiers = [
+  {
+    name: "Standard",
+    icon: Zap,
+    tagline: "Start with zero risk. Pay only for referrals you accept — cancel anytime.",
+    price: "$375",
+    priceSuffix: "lifetime",
+    originalPrice: undefined as string | undefined,
+    featured: false,
+    features: [
+      "$375 one-time setup (lifetime access)",
+      "$100 per accepted referral",
+      "Minimum 2 referrals",
+      "Human verified referrals",
+      "Live transfers",
+      "Scheduled appointments (with recording)",
+      "Premium portal access",
+      "Free follow-up",
+      "24/7 customer support",
+      "Cancel anytime",
+    ],
+  },
+  {
+    name: "Gold",
+    icon: Star,
+    tagline: "High volume referrals with low upfront cost and a small referral fee on closings.",
+    price: "$699",
+    priceSuffix: "/ 4 months",
+    originalPrice: undefined as string | undefined,
+    featured: false,
+    features: [
+      "$699 for 4-month term",
+      "8–12 referrals included",
+      "15% referral fee per closing",
+      "Human verified referrals",
+      "Scheduled appointments (with recording)",
+      "Exclusive referrals",
+      "Premium portal access",
+      "Free follow-up",
+      "Reimbursement offer",
+      "24/7 customer support",
+    ],
+  },
+  {
+    name: "Platinum",
+    icon: Sparkles,
+    tagline: "Best value — 10 guaranteed referrals at a steep discount. Everything included.",
+    price: "$949",
+    priceSuffix: "one-time",
+    originalPrice: "$1,375",
+    featured: true,
+    features: [
+      "10 guaranteed referrals",
+      "Human verified referrals",
+      "Live transfers",
+      "Scheduled appointments (with recording)",
+      "Premium portal access",
+      "Free follow-up",
+      "24/7 customer support",
+    ],
+  },
 ];
 
 export default function RealEstatePage() {
@@ -199,6 +273,144 @@ export default function RealEstatePage() {
               ))}
             </div>
           </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ── Pricing tiers ── */}
+      <section className="py-24 border-t border-white/[0.055]">
+        <div className="max-w-7xl mx-auto px-6">
+          <AnimatedSection className="text-center mb-14 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/[0.08] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-300 mb-5">
+              Pricing
+            </div>
+            <h2 className="text-4xl font-bold tracking-tight gradient-text-white mb-4">
+              Simple plans. Zero long-term lock-in.
+            </h2>
+            <p className="text-zinc-400 leading-relaxed">
+              Every plan includes human-verified referrals, live transfers, and 24/7
+              support. Pick the one that matches your volume — change or cancel anytime.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid md:grid-cols-3 gap-4 lg:gap-5 max-w-6xl mx-auto">
+            {pricingTiers.map((tier, i) => {
+              const Icon = tier.icon;
+              return (
+                <AnimatedSection key={tier.name} delay={i * 90}>
+                  <div
+                    className={`relative h-full rounded-2xl p-7 flex flex-col overflow-hidden ${
+                      tier.featured
+                        ? "border border-brand/40"
+                        : "border border-white/[0.07] bg-surface card-hover"
+                    }`}
+                    style={
+                      tier.featured
+                        ? {
+                            background:
+                              "linear-gradient(155deg, rgba(79,70,229,0.22) 0%, rgba(124,58,237,0.28) 55%, rgba(16,185,129,0.12) 100%)",
+                            boxShadow:
+                              "0 24px 60px -20px rgba(79,70,229,0.45), inset 0 0 0 1px rgba(255,255,255,0.04)",
+                          }
+                        : undefined
+                    }
+                  >
+                    {tier.featured && (
+                      <div className="absolute top-5 right-5">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-brand to-violet text-white shadow-[0_0_18px_rgba(124,58,237,0.45)]">
+                          Most Popular
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Icon + Name */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className={`w-11 h-11 rounded-xl flex items-center justify-center ${
+                          tier.featured ? "" : ""
+                        }`}
+                        style={
+                          tier.featured
+                            ? {
+                                background:
+                                  "linear-gradient(135deg, #4f46e5, #7c3aed)",
+                                boxShadow: "0 0 22px rgba(124,58,237,0.35)",
+                              }
+                            : {
+                                background: "rgba(16,185,129,0.1)",
+                                border: "1px solid rgba(16,185,129,0.2)",
+                              }
+                        }
+                      >
+                        <Icon
+                          size={19}
+                          className={tier.featured ? "text-white" : "text-emerald-400"}
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold text-zinc-100">{tier.name}</h3>
+                    </div>
+
+                    {/* Tagline */}
+                    <p className="text-sm text-zinc-400 leading-relaxed mb-6 min-h-[48px]">
+                      {tier.tagline}
+                    </p>
+
+                    {/* Price */}
+                    <div className="mb-6">
+                      {tier.originalPrice && (
+                        <div className="text-lg text-zinc-500 line-through mb-1">
+                          {tier.originalPrice}
+                        </div>
+                      )}
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black tracking-tight text-white">
+                          {tier.price}
+                        </span>
+                        <span className="text-sm text-zinc-400">{tier.priceSuffix}</span>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`h-px mb-5 ${
+                        tier.featured ? "bg-white/[0.12]" : "bg-white/[0.07]"
+                      }`}
+                    />
+
+                    {/* Features */}
+                    <ul className="flex flex-col gap-3 mb-7 flex-1">
+                      {tier.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2.5">
+                          <CheckCircle
+                            size={15}
+                            className={`flex-shrink-0 mt-0.5 ${
+                              tier.featured ? "text-brand-light" : "text-emerald-400"
+                            }`}
+                          />
+                          <span className="text-sm text-zinc-300 leading-snug">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA */}
+                    <Link
+                      href="/contact"
+                      className={`inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl font-semibold text-sm transition-all btn-shine ${
+                        tier.featured
+                          ? "bg-white text-zinc-900 hover:bg-zinc-100"
+                          : "bg-white/[0.06] border border-white/[0.1] text-zinc-100 hover:bg-white/[0.1]"
+                      }`}
+                    >
+                      Get Started <ArrowRight size={14} />
+                    </Link>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
+          </div>
+
+          <p className="text-center text-xs text-zinc-500 mt-8 max-w-xl mx-auto">
+            All plans are TCPA-compliant and include exclusive referral rights in your
+            licensed territory. Need something custom? <Link href="/contact" className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2">Talk to our team</Link>.
+          </p>
         </div>
       </section>
 

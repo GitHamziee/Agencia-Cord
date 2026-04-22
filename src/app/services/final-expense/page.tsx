@@ -33,7 +33,7 @@ const leadTypes = [
   {
     title: "Telemarketing-Confirmed",
     desc: "Leads that have been called and verbally confirmed interest in speaking with a licensed agent. Ready for your presentation.",
-    rate: "Avg. close rate: 24%",
+    rate: "Avg. close rate: 40–60%",
   },
 ];
 

@@ -29,35 +29,8 @@ const values = [
   },
 ];
 
-const team = [
-  {
-    name: "Alex Rivera",
-    role: "Founder & CEO",
-    specialty: "Lead Generation Strategy",
-    bio: "Former performance marketing director with 12+ years scaling B2C pipelines.",
-  },
-  {
-    name: "Sarah Kim",
-    role: "Head of Growth",
-    specialty: "Solar & Roofing",
-    bio: "Led growth at two $100M+ home services companies before joining Cord.",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Director of Technology",
-    specialty: "Web Dev & Call Centers",
-    bio: "Built and scaled virtual call center infrastructure for enterprise clients.",
-  },
-  {
-    name: "Emily Patel",
-    role: "VP, Insurance Division",
-    specialty: "Medicare & Final Expense",
-    bio: "Compliance expert and former insurance agency owner. 10+ years in the vertical.",
-  },
-];
-
 const milestones = [
-  { year: "2019", event: "Founded in Miami, FL with a focus on solar lead generation" },
+  { year: "2019", event: "Founded in Austin, Texas with a focus on solar lead generation" },
   { year: "2020", event: "Expanded into roofing and real estate verticals" },
   { year: "2021", event: "Launched insurance division — Medicare & final expense" },
   { year: "2022", event: "Crossed 500 active clients and launched virtual call center buildout" },
@@ -217,38 +190,6 @@ export default function AboutPage() {
                 </AnimatedSection>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Team ── */}
-      <section className="py-24 border-t border-white/[0.055]">
-        <div className="max-w-7xl mx-auto px-6">
-          <AnimatedSection className="text-center mb-14">
-            <h2 className="text-4xl font-bold tracking-tight gradient-text-white mb-4">
-              Leadership Team
-            </h2>
-            <p className="text-zinc-400 max-w-lg mx-auto">
-              Experts in their fields, dedicated to your growth.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {team.map((member, i) => (
-              <AnimatedSection key={i} delay={i * 60}>
-                <div className="p-6 rounded-2xl border border-white/[0.07] bg-surface card-hover text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand to-violet mx-auto mb-5 flex items-center justify-center text-white font-black text-xl shadow-[0_0_24px_rgba(79,70,229,0.25)]">
-                    {member.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <div className="font-bold text-zinc-100 mb-1">{member.name}</div>
-                  <div className="text-xs text-brand-light mb-3">{member.role}</div>
-                  <p className="text-xs text-zinc-500 leading-relaxed mb-3">{member.bio}</p>
-                  <div className="inline-flex px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.07] text-[10px] text-zinc-500">
-                    {member.specialty}
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
           </div>
         </div>
       </section>

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
+import { siteConfig } from "@/lib/siteConfig";
 
 const services = [
   { name: "Lead Generation", href: "/services/lead-generation" },
@@ -28,29 +30,35 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-violet flex items-center justify-center shadow-[0_0_14px_rgba(79,70,229,0.35)]">
-                <span className="text-white font-black text-sm">C</span>
-              </div>
-              <span className="font-bold text-[1.05rem] tracking-tight text-white">CORD</span>
+              <span className="relative w-9 h-9 rounded-lg overflow-hidden bg-white shadow-[0_0_14px_rgba(79,70,229,0.35)]">
+                <Image
+                  src={siteConfig.logo.src}
+                  alt={siteConfig.logo.alt}
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="font-bold text-[1.05rem] tracking-tight text-white">{siteConfig.brand}</span>
             </Link>
             <p className="text-sm text-zinc-500 leading-relaxed mb-6 max-w-xs">
               Premium digital agency helping businesses scale through expert lead generation across 9 high-value verticals.
             </p>
             <div className="flex flex-col gap-2.5">
               <a
-                href="mailto:hello@agenciacord.com"
+                href={`mailto:${siteConfig.contact.email}`}
                 className="flex items-center gap-2 text-xs text-zinc-500 hover:text-brand-light transition-colors"
               >
-                <Mail size={13} /> hello@agenciacord.com
+                <Mail size={13} /> {siteConfig.contact.email}
               </a>
               <a
-                href="tel:+15551234567"
+                href={siteConfig.contact.phoneHref}
                 className="flex items-center gap-2 text-xs text-zinc-500 hover:text-brand-light transition-colors"
               >
-                <Phone size={13} /> +1 (555) 123-4567
+                <Phone size={13} /> {siteConfig.contact.phoneDisplay}
               </a>
-              <span className="flex items-center gap-2 text-xs text-zinc-600">
-                <MapPin size={13} /> Miami, Florida
+              <span className="flex items-start gap-2 text-xs text-zinc-600 leading-relaxed">
+                <MapPin size={13} className="mt-0.5 flex-shrink-0" /> {siteConfig.contact.address}
               </span>
             </div>
           </div>

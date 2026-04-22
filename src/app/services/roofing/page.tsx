@@ -1,56 +1,56 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Home, CheckCircle, CloudRain, RefreshCw, Hammer, MapPin } from "lucide-react";
+import { ArrowRight, CloudRain, RefreshCw, MapPin, FileCheck, Target } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export const metadata: Metadata = {
-  title: "Roofing Lead Generation Services",
+  title: "Roofing Appointment Generation Services",
   description:
-    "Exclusive roofing leads for residential and commercial contractors. Storm damage, replacement, and new construction leads delivered in real-time.",
+    "Target hail-impacted homes for high-converting roofing appointments. Real-time hail storm tracking connects you with homeowners who just had damage.",
 };
 
 const leadTypes = [
   {
     icon: CloudRain,
-    title: "Storm Damage Leads",
-    desc: "Homeowners in affected storm zones actively seeking inspection and repair estimates. Delivered within hours of weather events.",
+    title: "Hail Damage Leads",
+    desc: "Real-time hail storm tracking identifies homes with fresh damage. We reach out within hours of the weather event — before they start shopping.",
     urgency: "High urgency",
   },
   {
     icon: RefreshCw,
     title: "Roof Replacement Leads",
-    desc: "Homeowners with aging roofs (15+ years) who have expressed interest in full replacements. Budget-qualified and location-verified.",
+    desc: "Homeowners with aging or storm-damaged roofs actively looking for full replacements. Budget-qualified and property-verified.",
     urgency: "Purchase-ready",
   },
   {
-    icon: Hammer,
-    title: "New Construction",
-    desc: "Builders and developers seeking roofing contractors for new residential or commercial construction projects.",
-    urgency: "Project-stage",
+    icon: FileCheck,
+    title: "Insurance-Ready Homeowners",
+    desc: "Prospects with insurance-eligible damage, pre-screened for successful claim conversations. Highest close rates of any lead type.",
+    urgency: "Claim-eligible",
   },
   {
-    icon: Home,
-    title: "Emergency Repair",
-    desc: "Active leak or damage situations requiring immediate professional attention. Highest close rates of any lead type.",
-    urgency: "Immediate",
+    icon: Target,
+    title: "Storm-Affected Properties",
+    desc: "Property-specific damage assessment using hail size, wind patterns, and roof materials — scored before the appointment is ever booked.",
+    urgency: "Verified",
   },
 ];
 
 const coverage = [
-  "All 50 states covered",
-  "County, zip code, or state-level geo-targeting",
-  "Storm path tracking with same-day lead delivery",
-  "Seasonal volume scaling based on your capacity",
-  "Competitor exclusion zones available",
-  "Shared or exclusive lead options",
+  "Real-time hail event monitoring nationwide",
+  "Property-specific damage assessment",
+  "TCPA-compliant marketing",
+  "Live call center verification",
+  "Insurance-ready homeowners only",
+  "Multi-channel delivery (phone / email / CRM)",
 ];
 
 const metrics = [
-  { value: "840+", label: "Roofing Contractors" },
-  { value: "62%", label: "Lead Contact Rate" },
-  { value: "28%", label: "Avg. Lead-to-Job Rate" },
-  { value: "$8,200", label: "Avg. Job Value" },
+  { value: "500+", label: "Businesses Served" },
+  { value: "92%", label: "Appointment Accuracy" },
+  { value: "45%", label: "Avg. Conversion Rate" },
+  { value: "24h", label: "Appointment Delivery" },
 ];
 
 export default function RoofingPage() {
@@ -63,64 +63,62 @@ export default function RoofingPage() {
         <div className="glow-blob w-[500px] h-[500px] bg-rose-600/[0.08] top-0 -left-20" />
         <div className="glow-blob w-[300px] h-[300px] bg-orange-500/[0.06] bottom-0 right-1/4" />
 
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-rose-500/25 bg-rose-500/[0.08] px-3.5 py-1 text-xs font-medium text-rose-300 mb-8">
-              <Home size={11} /> Roofing Lead Generation
-            </div>
-            <h1 className="animate-fade-in-up delay-100 text-6xl md:text-7xl font-black tracking-tight leading-[0.92] mb-8">
-              <span className="gradient-text-white">More jobs.</span>
-              <br />
-              <span className="gradient-text-white">Fewer</span>
-              <br />
-              <span style={{
-                background: "linear-gradient(135deg, #fb7185 0%, #f97316 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>
-                headaches.
-              </span>
-            </h1>
-            <p className="animate-fade-in-up delay-200 text-xl text-zinc-400 leading-relaxed mb-10 max-w-xl">
-              Exclusive roofing leads from homeowners ready to sign. We chase the leads
-              so your team can focus on showing up and closing.
-            </p>
-            <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-white font-semibold transition-all btn-shine"
-                style={{
-                  background: "linear-gradient(135deg, #e11d48, #f97316)",
-                  boxShadow: "0 0 36px rgba(225,29,72,0.25)",
-                }}
-              >
-                Start Getting Roofing Leads <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-400 hover:text-zinc-100 font-medium transition-all"
-              >
-                Check My Territory
-              </Link>
-            </div>
+        <div className="relative max-w-7xl mx-auto px-6 text-center">
+          <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-rose-500/25 bg-rose-500/[0.08] px-3.5 py-1 text-xs font-medium text-rose-300 mb-8">
+            <CloudRain size={11} /> Roofing Appointment Generation
+          </div>
+          <h1 className="animate-fade-in-up delay-100 text-6xl md:text-7xl font-black tracking-tight leading-[0.92] mb-8">
+            <span className="gradient-text-white">More jobs.</span>
+            <br />
+            <span className="gradient-text-white">Fewer</span>{" "}
+            <span style={{
+              background: "linear-gradient(135deg, #fb7185 0%, #f97316 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}>
+              headaches.
+            </span>
+          </h1>
+          <p className="animate-fade-in-up delay-200 text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+            We target hail-impacted homes with real-time storm data and live call center
+            verification — so you walk into appointments with homeowners who already
+            have damage and need you yesterday.
+          </p>
+          <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-white font-semibold transition-all btn-shine"
+              style={{
+                background: "linear-gradient(135deg, #e11d48, #f97316)",
+                boxShadow: "0 0 36px rgba(225,29,72,0.25)",
+              }}
+            >
+              Start Getting Roofing Leads <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl border border-white/[0.09] hover:border-white/[0.18] text-zinc-400 hover:text-zinc-100 font-medium transition-all"
+            >
+              Check My Territory
+            </Link>
+          </div>
 
-            {/* Inline metrics */}
-            <div className="animate-fade-in-up delay-400 flex flex-wrap gap-8 mt-14 pt-8 border-t border-white/[0.06]">
-              {metrics.map((m) => (
-                <div key={m.label}>
-                  <div className="text-2xl font-black" style={{
-                    background: "linear-gradient(135deg, #fb7185, #f97316)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}>
-                    {m.value}
-                  </div>
-                  <div className="text-xs text-zinc-500 mt-0.5">{m.label}</div>
+          {/* Inline metrics */}
+          <div className="animate-fade-in-up delay-400 grid grid-cols-2 md:grid-cols-4 gap-px mt-16 rounded-2xl overflow-hidden border border-white/[0.07] max-w-4xl mx-auto">
+            {metrics.map((m) => (
+              <div key={m.label} className="bg-surface/80 py-6 px-4 text-center backdrop-blur-sm">
+                <div className="text-3xl font-black mb-1" style={{
+                  background: "linear-gradient(135deg, #fb7185, #f97316)",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}>
+                  {m.value}
                 </div>
-              ))}
-            </div>
+                <div className="text-xs text-zinc-500">{m.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -128,13 +126,13 @@ export default function RoofingPage() {
       {/* ── Lead types grid ── */}
       <section className="py-24 border-t border-white/[0.055]">
         <div className="max-w-7xl mx-auto px-6">
-          <AnimatedSection className="mb-14">
+          <AnimatedSection className="text-center mb-14">
             <h2 className="text-4xl font-bold tracking-tight gradient-text-white mb-4">
-              Every type of roofing lead
+              Every type of roofing appointment
             </h2>
-            <p className="text-zinc-400 max-w-lg">
-              We segment leads by urgency and project type so you only receive leads
-              that match your capacity and service offering.
+            <p className="text-zinc-400 max-w-lg mx-auto">
+              We segment appointments by damage type and claim eligibility so your crew
+              only walks into jobs worth the drive.
             </p>
           </AnimatedSection>
 
@@ -173,12 +171,12 @@ export default function RoofingPage() {
           <div className="grid lg:grid-cols-2 gap-14">
             <AnimatedSection direction="left">
               <h2 className="text-3xl font-bold tracking-tight gradient-text-white mb-6">
-                Nationwide coverage, local precision
+                Hail-first targeting, nationwide reach
               </h2>
               <p className="text-zinc-400 mb-8 leading-relaxed text-sm">
-                We cover every market and can scale your lead volume up or down based
-                on your team's capacity. Storm season? We ramp. Slow season? We dial back.
-                You control the volume.
+                We monitor hail events in real time and cross-reference them with
+                property data to build your daily target list. TCPA-compliant, call-center
+                verified, and delivered straight into your CRM.
               </p>
               <div className="flex flex-col gap-2.5">
                 {coverage.map((c, i) => (
@@ -196,10 +194,10 @@ export default function RoofingPage() {
               </h2>
               <div className="flex flex-col gap-4">
                 {[
-                  { step: "01", title: "Territory Setup", desc: "Define your service area, lead type preference, and daily volume cap." },
-                  { step: "02", title: "Campaign Launch", desc: "We activate targeted campaigns across search, social, and storm-tracking tools." },
-                  { step: "03", title: "Lead Delivery", desc: "Real-time delivery via phone call, email, or CRM. Contact the lead within minutes." },
-                  { step: "04", title: "Performance Review", desc: "Weekly reporting on lead quality, contact rates, and ROI with optimization recommendations." },
+                  { step: "01", title: "Advanced Targeting", desc: "Real-time hail tracking and wind-damage assessment pinpoints the exact zip codes worth dialing." },
+                  { step: "02", title: "Call Center Verification", desc: "Live agents confirm homeowner intent and schedule the appointment directly onto your calendar." },
+                  { step: "03", title: "Quality Assurance", desc: "Property-level damage scoring and intent verification before any appointment is handed off to you." },
+                  { step: "04", title: "Instant Delivery", desc: "Multi-channel delivery to your CRM, phone, or email within 24 hours of the storm event." },
                 ].map((step) => (
                   <div key={step.step} className="flex gap-4">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full border border-rose-500/30 bg-rose-500/[0.07] flex items-center justify-center text-xs font-bold text-rose-400">
@@ -219,7 +217,7 @@ export default function RoofingPage() {
 
       <CTASection
         headline="Ready to fill your roofing schedule?"
-        subheadline="Check lead availability in your territory and get a free quote on exclusive roofing leads."
+        subheadline="Check hail activity in your territory and get a free quote on exclusive, call-verified roofing appointments."
         primaryCTA="Check My Territory"
         badge="Free Territory Check"
       />

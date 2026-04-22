@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowRight, Mail, Phone, MapPin, Clock, CheckCircle } from "lucide-react";
+import { siteConfig } from "@/lib/siteConfig";
 
 const services = [
   "Lead Generation",
@@ -20,22 +21,22 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email Us",
-    value: "hello@agenciacord.com",
-    sub: "We reply within 2 business hours",
-    href: "mailto:hello@agenciacord.com",
+    value: siteConfig.contact.email,
+    sub: siteConfig.responseTime,
+    href: `mailto:${siteConfig.contact.email}`,
   },
   {
     icon: Phone,
     label: "Call Us",
-    value: "+1 (555) 123-4567",
-    sub: "Monday – Friday, 9am – 6pm EST",
-    href: "tel:+15551234567",
+    value: siteConfig.contact.phoneDisplay,
+    sub: siteConfig.hours,
+    href: siteConfig.contact.phoneHref,
   },
   {
     icon: MapPin,
     label: "Our Office",
-    value: "Miami, Florida",
-    sub: "United States",
+    value: siteConfig.contact.address,
+    sub: siteConfig.contact.addressCountry,
     href: null,
   },
   {

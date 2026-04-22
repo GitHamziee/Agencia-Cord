@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import {
   ArrowRight,
   ChevronRight,
-  Target,
+  Home,
   Sun,
   Phone,
-  Star,
 } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/ui/AnimatedSection";
@@ -19,18 +18,18 @@ export const metadata: Metadata = {
 
 const featuredServices = [
   {
-    icon: Target,
-    title: "Lead Generation",
-    desc: "Precision multi-channel campaigns, delivered in real-time.",
-    href: "/services/lead-generation",
-    metric: "3.2× ROI",
-  },
-  {
     icon: Sun,
     title: "Solar",
     desc: "Exclusive solar leads for installers nationwide.",
     href: "/services/solar",
     metric: "$12M/yr",
+  },
+  {
+    icon: Home,
+    title: "Roofing",
+    desc: "Exclusive roofing leads for contractors nationwide.",
+    href: "/services/roofing",
+    metric: "Storm-ready",
   },
   {
     icon: Phone,
@@ -354,29 +353,6 @@ export default function HomePage() {
               </Link>
             </AnimatedSection>
 
-            {/* Testimonial tile */}
-            <AnimatedSection className="col-span-2 md:col-span-2">
-              <div className="h-full min-h-[210px] p-7 rounded-3xl border border-white/[0.07] bg-surface flex flex-col justify-between">
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={13} className="fill-amber text-amber" />
-                  ))}
-                </div>
-                <p className="text-base md:text-lg text-zinc-200 leading-relaxed font-medium italic mb-4">
-                  &ldquo;Cord 4&times;&apos;d our pipeline in 90 days. Best agency
-                  decision we&apos;ve made all year.&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand to-violet flex items-center justify-center text-white font-bold text-sm">
-                    ML
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-zinc-200">Marcus Lopez</div>
-                    <div className="text-[11px] text-zinc-500">Solar Installer · Phoenix, AZ</div>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
           </div>
         </div>
       </section>
