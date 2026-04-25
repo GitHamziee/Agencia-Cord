@@ -76,10 +76,10 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --color-bg: #ffffff;
-  --color-surface: #f3f3f7;
-  --color-surface-2: #e6e6ed;
-  --color-surface-3: #d7d7e0;
+  --color-bg: #f6f7fb;
+  --color-surface: #eeeff5;
+  --color-surface-2: #e3e4ec;
+  --color-surface-3: #d4d6e0;
 
   --color-fg: #09090b;
   --color-fg-muted: #3f3f46;
@@ -102,8 +102,8 @@
 
   --stroke-tint: rgb(9 9 11 / 0.38);
 
-  --aurora-fade-top: rgb(255 255 255 / 0);
-  --aurora-fade-bot: rgb(255 255 255 / 1);
+  --aurora-fade-top: rgb(246 247 251 / 0);
+  --aurora-fade-bot: rgb(246 247 251 / 1);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -233,7 +233,7 @@ body {
 /* Header: drop backdrop-blur in light mode so the navbar stops averaging
    aurora colors from behind, and make the overlay fully opaque. */
 [data-theme="light"] .bg-bg\/88 {
-  background-color: rgb(255 255 255);
+  background-color: #f6f7fb;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
@@ -258,7 +258,7 @@ body {
     0 10px 30px -12px rgb(0 0 0 / 0.55);
 }
 [data-theme="light"] .nav-shell-scrolled {
-  background-color: #ffffff;
+  background-color: #f6f7fb;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border-bottom: 1px solid rgb(9 9 11 / 0.08);
