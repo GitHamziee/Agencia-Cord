@@ -5,6 +5,7 @@ import Script from "next/script";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, CheckCircle } from "lucide-react";
+import { STATES } from "@/lib/states";
 
 type SubmitResult = {
   ok: boolean;
@@ -15,7 +16,8 @@ type SubmitResult = {
 
 export default function LeadForm() {
   const searchParams = useSearchParams();
-  const state = searchParams.get("state") || "";
+  const stateCode = searchParams.get("state") || "";
+  const stateSlug = STATES[stateCode]?.slug || "california";
 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
@@ -26,11 +28,22 @@ export default function LeadForm() {
     setSubmitting(true);
     setError(null);
 
-    const fd = new FormData(e.currentTarget);
+    const formEl = e.currentTarget;
+
+    // Wait for TrustedForm to populate xxTrustedFormCertUrl (up to 12s)
+    const certInput = formEl.querySelector<HTMLInputElement>(
+      'input[name="xxTrustedFormCertUrl"]'
+    );
+    const deadline = Date.now() + 12000;
+    while (certInput && !certInput.value && Date.now() < deadline) {
+      await new Promise((r) => setTimeout(r, 250));
+    }
+
+    const fd = new FormData(formEl);
     const payload: Record<string, FormDataEntryValue> = Object.fromEntries(
       fd.entries()
     );
-    payload.state = state;
+    payload.state = stateCode;
 
     try {
       const res = await fetch("/api/leads/submit", {
@@ -64,6 +77,19 @@ export default function LeadForm() {
           <p className="mt-4 text-xs font-mono text-zinc-500 break-all">
             Ref: {result.id}
           </p>
+          {result.certUrl && (
+            <p className="mt-2 text-xs font-mono text-zinc-500 break-all">
+              Cert:{" "}
+              <a
+                href={result.certUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-zinc-400 hover:text-zinc-200 underline underline-offset-2"
+              >
+                {result.certUrl}
+              </a>
+            </p>
+          )}
         </div>
         <Link
           href="/leads"
@@ -77,15 +103,119 @@ export default function LeadForm() {
 
   return (
     <>
-      {/* TrustedForm */}
+      {/* Interceptor – must run first */}
+      <Script id="tf-interceptor" strategy="afterInteractive">
+        {`(function() {
+          var formSlug = "${stateSlug}";
+          function headersToPlain(headers) {
+            if (!headers) return {};
+            if (headers instanceof Headers) {
+              var obj = {};
+              headers.forEach(function(v, k) { obj[k] = v; });
+              return obj;
+            }
+            return headers;
+          }
+          // Intercept fetch
+          var origFetch = window.fetch;
+          window.fetch = function(input, init) {
+            var url = input instanceof Request ? input.url : String(input);
+            if (url.indexOf('trustedform.com') === -1) {
+              return origFetch.call(this, input, init);
+            }
+            return new Promise(function(resolve, reject) {
+              var method = init && init.method
+                ? init.method
+                : (input instanceof Request ? input.method : 'GET');
+              var headers = headersToPlain(
+                init && init.headers
+                  ? init.headers
+                  : (input instanceof Request ? input.headers : {})
+              );
+              var bodyPromise = Promise.resolve();
+              var body;
+              if (init && init.body) {
+                if (typeof init.body === 'string') {
+                  body = init.body;
+                } else if (init.body instanceof FormData) {
+                  body = Object.fromEntries(init.body);
+                } else {
+                  body = init.body;
+                }
+              } else if (input instanceof Request && input.body) {
+                bodyPromise = input.clone().text().then(function(txt) { body = txt; });
+              }
+              bodyPromise.then(function() {
+                return origFetch('/api/trustedform-proxy', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    url: url,
+                    method: method,
+                    headers: headers,
+                    data: body || null,
+                    state: formSlug
+                  })
+                });
+              }).then(resolve).catch(reject);
+            });
+          };
+          // Intercept XMLHttpRequest
+          var OrigXHR = window.XMLHttpRequest;
+          window.XMLHttpRequest = function() {
+            var xhr = new OrigXHR();
+            var originalOpen = xhr.open;
+            var originalSend = xhr.send;
+            var _method = 'GET';
+            var _url = '';
+            xhr.open = function(method, url, async, user, password) {
+              _method = method;
+              _url = url;
+              return originalOpen.call(this, method, url, async !== false, user, password);
+            };
+            xhr.send = function(body) {
+              var self = this;
+              if (_url.indexOf('trustedform.com') === -1) {
+                return originalSend.call(self, body);
+              }
+              self.abort();
+              var proxyPayload = {
+                url: _url,
+                method: _method,
+                headers: {},
+                data: body,
+                state: formSlug
+              };
+              origFetch('/api/trustedform-proxy', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(proxyPayload)
+              }).then(function(proxyRes) {
+                Object.defineProperty(self, 'readyState', { value: 4, writable: true });
+                Object.defineProperty(self, 'status', { value: proxyRes.status, writable: true });
+                Object.defineProperty(self, 'statusText', { value: proxyRes.statusText, writable: true });
+                return proxyRes.text();
+              }).then(function(text) {
+                Object.defineProperty(self, 'responseText', { value: text, writable: true });
+                Object.defineProperty(self, 'response', { value: text, writable: true });
+                if (self.onreadystatechange) self.onreadystatechange();
+                if (self.onload) self.onload();
+              }).catch(function(err) {
+                if (self.onerror) self.onerror(err);
+              });
+            };
+            return xhr;
+          };
+        })();`}
+      </Script>
+
+      {/* TrustedForm loader – runs after interceptor */}
       <Script id="trustedform" strategy="afterInteractive">
         {`(function() {
             var tf = document.createElement('script');
             tf.type = 'text/javascript';
-            tf.async = true;
-            tf.src = ("https:" == document.location.protocol ? 'https' : 'http') +
-              '://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=' +
-              new Date().getTime() + Math.random();
+            tf.async = false;
+            tf.src = '/api/trustedform-script?field=xxTrustedFormCertUrl&use_tagged_consent=true&state=${stateSlug}&l=' + new Date().getTime() + Math.random();
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(tf, s);
           })();`}
@@ -99,9 +229,9 @@ export default function LeadForm() {
         onSubmit={handleSubmit}
         className="p-8 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-5"
       >
-        {state && (
+        {stateCode && (
           <div className="text-xs font-semibold text-zinc-500">
-            State: <span className="text-zinc-300">{state}</span>
+            State: <span className="text-zinc-300">{stateCode}</span>
           </div>
         )}
 

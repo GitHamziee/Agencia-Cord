@@ -1,6 +1,7 @@
 import { ProxyAgent, fetch as undiciFetch } from "undici";
 
-export async function getProxyIp(stateSlug: string): Promise<string> {
+// ---------- Reusable proxy agent ----------
+export function getProxyAgent(stateSlug: string): ProxyAgent {
   const username = process.env.IPROYAL_USERNAME;
   const password = process.env.IPROYAL_PASSWORD;
   const host = process.env.IPROYAL_HOST || "geo.iproyal.com";
@@ -8,15 +9,21 @@ export async function getProxyIp(stateSlug: string): Promise<string> {
 
   if (!username || !password) {
     throw new Error(
-      "IPRoyal credentials not configured. Set IPROYAL_USERNAME and IPROYAL_PASSWORD in .env.local."
+      "IPRoyal credentials not configured. Set IPROYAL_USERNAME and IPROYAL_PASSWORD in .env.local.",
     );
   }
 
+  // IProxy targeting: password_country-us_state-<slug>_session-<random>
   const session = Math.random().toString(36).slice(2, 10);
-  const user = `${username}-country-us-state-${stateSlug}-session-${session}`;
-  const proxyUrl = `http://${encodeURIComponent(user)}:${encodeURIComponent(password)}@${host}:${port}`;
+  const targetedPassword = `${password}_country-us_state-${stateSlug}_session-${session}`;
+  const proxyUrl = `http://${encodeURIComponent(username)}:${encodeURIComponent(targetedPassword)}@${host}:${port}`;
 
-  const dispatcher = new ProxyAgent(proxyUrl);
+  return new ProxyAgent(proxyUrl);
+}
+
+// ---------- Existing IP checker (refactored to use the helper) ----------
+export async function getProxyIp(stateSlug: string): Promise<string> {
+  const dispatcher = getProxyAgent(stateSlug);
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
