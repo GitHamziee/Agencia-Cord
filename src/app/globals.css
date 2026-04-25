@@ -238,6 +238,72 @@ body {
   -webkit-backdrop-filter: none;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   NAV SHELL  —  scrolled-state styling, themed
+   The non-scrolled state stays transparent (handled inline). When the
+   user scrolls, we swap to a translucent glass in dark mode and a clean
+   opaque white in light mode (no blur — aurora would bleed through).
+   ═══════════════════════════════════════════════════════════════════ */
+.nav-shell {
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.nav-shell-scrolled {
+  background-color: rgb(9 9 11 / 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.04),
+    0 10px 30px -12px rgb(0 0 0 / 0.55);
+}
+[data-theme="light"] .nav-shell-scrolled {
+  background-color: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid rgb(9 9 11 / 0.08);
+  box-shadow: 0 6px 22px -12px rgb(20 20 32 / 0.18);
+}
+
+/* Active nav-link: a short gradient bar under the pill */
+.nav-link {
+  position: relative;
+}
+.nav-link-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--color-brand), var(--color-violet));
+  box-shadow: 0 0 10px rgb(79 70 229 / 0.5);
+}
+[data-theme="light"] .nav-link-active::after {
+  box-shadow: 0 0 8px rgb(79 70 229 / 0.35);
+}
+
+/* CTA glow tuned per theme — purple halo reads as muddy on white */
+.btn-brand-glow {
+  box-shadow: 0 0 22px rgb(79 70 229 / 0.28);
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+.btn-brand-glow:hover {
+  box-shadow: 0 0 34px rgb(79 70 229 / 0.48);
+}
+[data-theme="light"] .btn-brand-glow {
+  box-shadow:
+    0 6px 16px -4px rgb(79 70 229 / 0.32),
+    0 2px 4px rgb(20 20 32 / 0.06);
+}
+[data-theme="light"] .btn-brand-glow:hover {
+  box-shadow:
+    0 10px 26px -6px rgb(79 70 229 / 0.5),
+    0 2px 6px rgb(20 20 32 / 0.08);
+}
+
 /* Dot / line grids — the stroke-tint bump already darkens them, but cap
    opacity so they read as background texture, not foreground noise. */
 [data-theme="light"] .dot-grid  { opacity: 0.7; }
@@ -270,12 +336,6 @@ body {
 }
 
 /* Warm / green gradients also lighten too much on white — nudge darker. */
-[data-theme="light"] .gradient-text-warm {
-  background: linear-gradient(135deg, #d97706 0%, #c2410c 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 [data-theme="light"] .gradient-text-solar {
   background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #92400e 100%);
   -webkit-background-clip: text;
@@ -301,13 +361,6 @@ body {
 
 .gradient-text-white {
   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.62) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gradient-text-warm {
-  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -399,15 +452,6 @@ body {
   to   { opacity: 1; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-
-@keyframes spinAnim {
-  to { transform: rotate(360deg); }
-}
-
 @keyframes shine {
   0%   { left: -100%; }
   100% { left: 200%; }
@@ -421,21 +465,6 @@ body {
 /* ── ANIMATION CLASSES ── */
 .animate-fade-in-up { animation: fadeInUp 0.72s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .animate-fade-in    { animation: fadeIn 0.5s ease both; }
-.animate-float      { animation: float 4s ease-in-out infinite; }
-.animate-spin-slow  { animation: spinAnim 1s linear infinite; }
-
-.animate-spin-orbit {
-  animation: spinAnim 24s linear infinite;
-  transform-origin: center;
-}
-.animate-spin-orbit-reverse {
-  animation: spinAnim 36s linear infinite reverse;
-  transform-origin: center;
-}
-.animate-spin-sweep {
-  animation: spinAnim 6s linear infinite;
-  transform-origin: center;
-}
 
 @keyframes orbPulse {
   0%, 100% { opacity: 0.45; transform: scale(1); }
@@ -451,14 +480,11 @@ body {
 }
 
 /* ── STAGGER DELAYS ── */
-.delay-75  { animation-delay: 75ms; }
 .delay-100 { animation-delay: 100ms; }
-.delay-150 { animation-delay: 150ms; }
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
-.delay-700 { animation-delay: 700ms; }
 
 /* ═══════════════════════════════════════════════════════════════════
    SCROLL REVEAL
@@ -540,6 +566,11 @@ body {
   animation: shine 0.55s ease forwards;
 }
 
+/* ─── AUTO SHINE ─── */
+.btn-shine-auto::after {
+  animation: shine 2.8s ease-in-out 1s infinite;
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    FORM INPUTS
    ═══════════════════════════════════════════════════════════════════ */
@@ -566,6 +597,9 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════
    MARQUEE
+   content-visibility skips the perpetual animation paint work whenever
+   the marquee is scrolled out of the viewport. intrinsic-size is a
+   conservative placeholder so layout stays stable.
    ═══════════════════════════════════════════════════════════════════ */
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -576,6 +610,8 @@ body {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  content-visibility: auto;
+  contain-intrinsic-size: 100% 80px;
 }
 .marquee-track {
   display: flex;
@@ -598,12 +634,14 @@ body {
 
 /* ═══════════════════════════════════════════════════════════════════
    AURORA BACKGROUND
+   Animation uses only transform (GPU-cheap). No background-position or
+   filter animation — the blur() is static, so it's rasterized once.
    ═══════════════════════════════════════════════════════════════════ */
 @keyframes aurora {
-  0%   { transform: translate(-18%, -12%) rotate(0deg);   }
-  33%  { transform: translate(14%,  -18%) rotate(120deg); }
-  66%  { transform: translate(-12%,  20%) rotate(240deg); }
-  100% { transform: translate(-18%, -12%) rotate(360deg); }
+  0%   { transform: translate3d(-18%, -12%, 0) rotate(0deg);   }
+  33%  { transform: translate3d(14%,  -18%, 0) rotate(120deg); }
+  66%  { transform: translate3d(-12%,  20%, 0) rotate(240deg); }
+  100% { transform: translate3d(-18%, -12%, 0) rotate(360deg); }
 }
 .aurora-layer {
   position: absolute;
@@ -666,7 +704,17 @@ body {
   mix-blend-mode: overlay;
 }
 
-/* ─── AUTO SHINE ─── */
-.btn-shine-auto::after {
-  animation: shine 2.8s ease-in-out 1s infinite;
+/* ═══════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   Respect users who've asked for less animation. Disables every
+   perpetual animation (aurora, marquee, orb-pulse, glow-pulse, ping,
+   pulse-dot, btn-shine-auto) and collapses transitions so INP stays low.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
