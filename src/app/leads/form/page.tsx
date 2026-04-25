@@ -1,11 +1,22 @@
 import { Suspense } from "react";
 import LeadForm from "./LeadForm";
+import { lookupZip } from "@/lib/zipLookup";
 
 export const metadata = {
   title: "Get a Quote",
 };
 
-export default function LeadsFormPage() {
+type SearchParams = Promise<{ zip?: string | string[] }>;
+
+export default async function LeadsFormPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const sp = await searchParams;
+  const raw = Array.isArray(sp.zip) ? sp.zip[0] : sp.zip;
+  const zip = (raw || "").trim();
+  const geo = zip ? await lookupZip(zip) : null;
   return (
     <div className="pt-16">
       <section className="relative py-24 overflow-hidden">
@@ -23,6 +34,14 @@ export default function LeadsFormPage() {
           <div className="mb-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-6">
               Step 2 of 2
+              {geo && (
+                <>
+                  <span className="text-zinc-700">·</span>
+                  <span className="text-brand-light">
+                    {geo.city}, {geo.stateCode}
+                  </span>
+                </>
+              )}
             </div>
             <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-4">
               <span className="gradient-text-white">Tell us about</span>{" "}

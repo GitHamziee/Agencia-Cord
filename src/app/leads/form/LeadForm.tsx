@@ -5,7 +5,6 @@ import Script from "next/script";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { STATES } from "@/lib/states";
 
 type SubmitResult = {
   ok: boolean;
@@ -16,8 +15,7 @@ type SubmitResult = {
 
 export default function LeadForm() {
   const searchParams = useSearchParams();
-  const stateCode = searchParams.get("state") || "";
-  const stateSlug = STATES[stateCode]?.slug || "california";
+  const zip = (searchParams.get("zip") || "").trim();
 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
@@ -43,7 +41,7 @@ export default function LeadForm() {
     const payload: Record<string, FormDataEntryValue> = Object.fromEntries(
       fd.entries()
     );
-    payload.state = stateCode;
+    payload.zip = (payload.zip as string) || zip;
 
     try {
       const res = await fetch("/api/leads/submit", {
@@ -106,7 +104,7 @@ export default function LeadForm() {
       {/* Interceptor – must run first */}
       <Script id="tf-interceptor" strategy="afterInteractive">
         {`(function() {
-          var formSlug = "${stateSlug}";
+          var formZip = "${zip}";
           function headersToPlain(headers) {
             if (!headers) return {};
             if (headers instanceof Headers) {
@@ -154,7 +152,7 @@ export default function LeadForm() {
                     method: method,
                     headers: headers,
                     data: body || null,
-                    state: formSlug
+                    zip: formZip
                   })
                 });
               }).then(resolve).catch(reject);
@@ -215,7 +213,7 @@ export default function LeadForm() {
             var tf = document.createElement('script');
             tf.type = 'text/javascript';
             tf.async = false;
-            tf.src = '/api/trustedform-script?field=xxTrustedFormCertUrl&use_tagged_consent=true&state=${stateSlug}&l=' + new Date().getTime() + Math.random();
+            tf.src = '/api/trustedform-script?field=xxTrustedFormCertUrl&use_tagged_consent=true&zip=${zip}&l=' + new Date().getTime() + Math.random();
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(tf, s);
           })();`}
@@ -229,9 +227,9 @@ export default function LeadForm() {
         onSubmit={handleSubmit}
         className="p-8 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-5"
       >
-        {stateCode && (
+        {zip && (
           <div className="text-xs font-semibold text-zinc-500">
-            State: <span className="text-zinc-300">{stateCode}</span>
+            ZIP: <span className="text-zinc-300">{zip}</span>
           </div>
         )}
 

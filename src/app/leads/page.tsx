@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { STATES } from "@/lib/states";
 
 export const metadata = {
-  title: "Get Started — Select Your State",
+  title: "Get Started — Enter Your ZIP",
 };
 
 export default function LeadsLandingPage() {
@@ -31,34 +30,30 @@ export default function LeadsLandingPage() {
               <span className="gradient-text">located?</span>
             </h1>
             <p className="animate-fade-in-up delay-200 text-lg text-zinc-400 leading-relaxed max-w-xl">
-              Select your state to see services available in your area.
+              Enter your ZIP code to see services available in your area.
             </p>
           </div>
 
           <form
-            action="/leads/result"
+            action="/leads/form"
             method="GET"
             className="p-8 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-5"
           >
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-zinc-400">
-                State <span className="text-brand-light">*</span>
+                ZIP Code <span className="text-brand-light">*</span>
               </label>
-              <select
-                name="state"
+              <input
+                name="zip"
+                type="text"
+                inputMode="numeric"
+                pattern="\d{5}"
+                maxLength={5}
                 required
-                defaultValue=""
+                autoComplete="postal-code"
+                placeholder="90210"
                 className="form-input"
-              >
-                <option value="" disabled>
-                  Select a state...
-                </option>
-                {Object.entries(STATES).map(([code, { name }]) => (
-                  <option key={code} value={code}>
-                    {name}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             <button

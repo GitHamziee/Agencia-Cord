@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetch as undiciFetch } from "undici";
 import { getProxyAgent } from "@/lib/leadsProxy";
+import { lookupZip } from "@/lib/zipLookup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,8 +20,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Disallowed host" }, { status: 403 });
   }
 
-  const stateSlug = body.state || "california";
-  const dispatcher = getProxyAgent(stateSlug);
+  const zip = typeof body.zip === "string" ? body.zip.trim() : "";
+  const geo = zip ? await lookupZip(zip) : null;
+  const stateSlug = geo?.stateSlug || (typeof body.state === "string" ? body.state : "") || "california";
+  const citySlug = geo?.citySlug || null;
+  const dispatcher = getProxyAgent({ stateSlug, citySlug });
 
   const upstreamHeaders: Record<string, string> = {};
   if (headers) {

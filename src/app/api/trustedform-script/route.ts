@@ -1,28 +1,55 @@
 import { NextResponse } from "next/server";
 import { fetch as undiciFetch } from "undici";
 import { getProxyAgent } from "@/lib/leadsProxy";
+import { lookupZip } from "@/lib/zipLookup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const stateSlug = searchParams.get("state") || "california";
+  const zip = (searchParams.get("zip") || "").trim();
   const field = searchParams.get("field") || "xxTrustedFormCertUrl";
   const useTaggedConsent = searchParams.get("use_tagged_consent") || "true";
   const l = searchParams.get("l") || `${Date.now()}${Math.random()}`;
 
-  const dispatcher = getProxyAgent(stateSlug);
+  const geo = zip ? await lookupZip(zip) : null;
+  const stateSlug = geo?.stateSlug || "california";
+  const citySlug = geo?.citySlug || null;
+
+  // Reuse an existing sticky session from cookie, or mint a new one so every
+  // beacon during this visit lands on the same residential IP.
+  const cookieHeader = request.headers.get("cookie") || "";
+  const existingSession = cookieHeader.match(/(?:^|;\s*)tf_session=([^;]+)/);
+  const session = existingSession
+    ? decodeURIComponent(existingSession[1])
+    : Math.random().toString(36).slice(2, 12);
 
   const tfUrl =
     `https://api.trustedform.com/trustedform.js?field=${encodeURIComponent(field)}` +
     `&use_tagged_consent=${encodeURIComponent(useTaggedConsent)}&l=${encodeURIComponent(l)}`;
 
-  const res = await undiciFetch(tfUrl, { dispatcher });
+  // Try city-targeted first; if iproyal has no IP for that city the CONNECT
+  // tunnel returns 503 and undici throws — fall back to state-only.
+  let res: Awaited<ReturnType<typeof undiciFetch>> | null = null;
+  let effectiveCity: string | null = citySlug;
+  try {
+    res = await undiciFetch(tfUrl, {
+      dispatcher: getProxyAgent({ stateSlug, citySlug, session }),
+    });
+    if (!res.ok) throw new Error(`upstream ${res.status}`);
+  } catch {
+    if (citySlug) {
+      effectiveCity = null;
+      res = await undiciFetch(tfUrl, {
+        dispatcher: getProxyAgent({ stateSlug, citySlug: null, session }),
+      });
+    }
+  }
 
-  if (!res.ok) {
+  if (!res || !res.ok) {
     return NextResponse.json(
-      { error: `Failed to load TrustedForm script: ${res.status}` },
+      { error: `Failed to load TrustedForm script: ${res?.status ?? "no response"}` },
       { status: 502 }
     );
   }
@@ -53,12 +80,21 @@ export async function GET(request: Request) {
       `//${host}/api/trustedform-proxy/api`
     );
 
-  return new NextResponse(scriptBody, {
-    headers: {
-      "Content-Type": "application/javascript; charset=utf-8",
-      "Cache-Control": "no-store, max-age=0",
-      // Pin state for subsequent /api/trustedform-proxy/* requests
-      "Set-Cookie": `tf_state=${encodeURIComponent(stateSlug)}; Path=/api/trustedform-proxy; SameSite=Lax`,
-    },
+  const headers = new Headers({
+    "Content-Type": "application/javascript; charset=utf-8",
+    "Cache-Control": "no-store, max-age=0",
   });
+  headers.append(
+    "Set-Cookie",
+    `tf_state=${encodeURIComponent(stateSlug)}; Path=/api/trustedform-proxy; SameSite=Lax`
+  );
+  headers.append(
+    "Set-Cookie",
+    `tf_city=${encodeURIComponent(effectiveCity || "")}; Path=/api/trustedform-proxy; SameSite=Lax`
+  );
+  headers.append(
+    "Set-Cookie",
+    `tf_session=${encodeURIComponent(session)}; Path=/api/trustedform-proxy; SameSite=Lax; Max-Age=600`
+  );
+  return new NextResponse(scriptBody, { headers });
 }

@@ -48,11 +48,16 @@ async function handle(
     upstreamUrl.searchParams.set(k, v);
   });
 
-  // Resolve state slug from cookie set by /api/trustedform-script
+  // Resolve geo + sticky session from cookies set by /api/trustedform-script
   const cookieHeader = request.headers.get("cookie") || "";
-  const m = cookieHeader.match(/(?:^|;\s*)tf_state=([^;]+)/);
-  const stateSlug = m ? decodeURIComponent(m[1]) : "california";
-  const dispatcher = getProxyAgent(stateSlug);
+  const stateMatch = cookieHeader.match(/(?:^|;\s*)tf_state=([^;]+)/);
+  const cityMatch = cookieHeader.match(/(?:^|;\s*)tf_city=([^;]+)/);
+  const sessionMatch = cookieHeader.match(/(?:^|;\s*)tf_session=([^;]+)/);
+  const stateSlug = stateMatch ? decodeURIComponent(stateMatch[1]) : "california";
+  const cityRaw = cityMatch ? decodeURIComponent(cityMatch[1]) : "";
+  const citySlug = cityRaw || null;
+  const session = sessionMatch ? decodeURIComponent(sessionMatch[1]) : null;
+  const dispatcher = getProxyAgent({ stateSlug, citySlug, session });
 
   // Forward sanitized request headers
   const fwdHeaders: Record<string, string> = {};
