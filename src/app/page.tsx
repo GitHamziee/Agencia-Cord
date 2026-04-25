@@ -54,16 +54,22 @@ export default function HomePage() {
       <section className="relative min-h-[100svh] flex items-start lg:items-center overflow-hidden pt-20 lg:pt-24">
         <div className="absolute inset-0 overflow-hidden">
           <div
-            className="aurora-layer aurora-static"
-            style={{ background: "radial-gradient(50% 50% at 50% 50%, #a855f7 0%, transparent 70%)" }}
+            className="aurora-layer"
+            style={{ background: "radial-gradient(50% 50% at 50% 50%, #4f46e5 0%, transparent 70%)" }}
           />
           <div
-            className="aurora-layer aurora-static"
-            style={{ background: "radial-gradient(50% 50% at 28% 72%, #ec4899 0%, transparent 70%)" }}
+            className="aurora-layer"
+            style={{
+              background: "radial-gradient(50% 50% at 30% 70%, #7c3aed 0%, transparent 70%)",
+              animationDelay: "-9s",
+            }}
           />
           <div
-            className="aurora-layer aurora-static"
-            style={{ background: "radial-gradient(50% 50% at 72% 28%, #f59e0b 0%, transparent 70%)" }}
+            className="aurora-layer"
+            style={{
+              background: "radial-gradient(50% 50% at 70% 30%, #06b6d4 0%, transparent 70%)",
+              animationDelay: "-17s",
+            }}
           />
         </div>
         <div className="dot-grid absolute inset-0 opacity-60" />
