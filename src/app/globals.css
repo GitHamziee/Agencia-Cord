@@ -672,6 +672,12 @@ body {
   border-radius: 50%;
 }
 
+/* Opt-out of the aurora animation while keeping the same blur/positioning. */
+.aurora-static {
+  animation: none;
+  will-change: auto;
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    GLOW PULSE
    ═══════════════════════════════════════════════════════════════════ */
