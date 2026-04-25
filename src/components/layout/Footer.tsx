@@ -71,6 +71,7 @@ export default function Footer() {
                 <li key={s.href}>
                   <Link
                     href={s.href}
+                    prefetch={false}
                     className="text-sm text-zinc-500 hover:text-zinc-200 transition-colors"
                   >
                     {s.name}
@@ -88,6 +89,7 @@ export default function Footer() {
                 <li key={s.href}>
                   <Link
                     href={s.href}
+                    prefetch={false}
                     className="text-sm text-zinc-500 hover:text-zinc-200 transition-colors"
                   >
                     {s.name}
@@ -101,6 +103,7 @@ export default function Footer() {
                 <li key={c.href}>
                   <Link
                     href={c.href}
+                    prefetch={false}
                     className="text-sm text-zinc-500 hover:text-zinc-200 transition-colors"
                   >
                     {c.name}
@@ -131,13 +134,13 @@ export default function Footer() {
             © {new Date().getFullYear()} Agencia Cord. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/privacy" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
+            <Link href="/privacy" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
+            <Link href="/terms" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
               Terms of Service
             </Link>
-            <Link href="/sitemap.xml" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
+            <Link href="/sitemap.xml" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
               Sitemap
             </Link>
           </div>
