@@ -52,22 +52,22 @@ export default function HomePage() {
     <div>
       {/* ════════════════ HERO ════════════════ */}
       <section className="relative min-h-[100svh] flex items-start lg:items-center overflow-hidden pt-20 lg:pt-24">
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="hero-aurora absolute inset-0 overflow-hidden">
           <div
             className="aurora-layer"
-            style={{ background: "radial-gradient(50% 50% at 50% 50%, #4f46e5 0%, transparent 70%)" }}
+            style={{ background: "radial-gradient(50% 50% at 50% 50%, var(--hero-aurora-c1) 0%, transparent 70%)" }}
           />
           <div
             className="aurora-layer"
             style={{
-              background: "radial-gradient(50% 50% at 30% 70%, #7c3aed 0%, transparent 70%)",
+              background: "radial-gradient(50% 50% at 30% 70%, var(--hero-aurora-c2) 0%, transparent 70%)",
               animationDelay: "-9s",
             }}
           />
           <div
             className="aurora-layer"
             style={{
-              background: "radial-gradient(50% 50% at 70% 30%, #06b6d4 0%, transparent 70%)",
+              background: "radial-gradient(50% 50% at 70% 30%, var(--hero-aurora-c3) 0%, transparent 70%)",
               animationDelay: "-17s",
             }}
           />

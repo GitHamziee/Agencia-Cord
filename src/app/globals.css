@@ -672,6 +672,25 @@ body {
   border-radius: 50%;
 }
 
+/* Hero aurora colors — themed. Dark keeps the original indigo/violet/cyan
+   set; light swaps to a warm purple/pink/amber palette and kills the
+   animation so the gradient sits still. */
+:root,
+[data-theme="dark"] {
+  --hero-aurora-c1: #4f46e5;
+  --hero-aurora-c2: #7c3aed;
+  --hero-aurora-c3: #06b6d4;
+}
+[data-theme="light"] {
+  --hero-aurora-c1: #a855f7;
+  --hero-aurora-c2: #ec4899;
+  --hero-aurora-c3: #f59e0b;
+}
+[data-theme="light"] .hero-aurora .aurora-layer {
+  animation: none;
+  will-change: auto;
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    GLOW PULSE
    ═══════════════════════════════════════════════════════════════════ */
