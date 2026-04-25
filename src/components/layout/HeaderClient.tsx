@@ -87,8 +87,8 @@ export default function HeaderClient({
                 href={link.href}
                 className={`nav-link px-3.5 py-2 rounded-lg text-sm transition-colors ${
                   active
-                    ? "nav-link-active text-zinc-100 bg-white/[0.07]"
-                    : "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]"
+                    ? "nav-link-active text-zinc-100"
+                    : "text-zinc-400 hover:text-zinc-100"
                 }`}
               >
                 {link.label}
@@ -105,8 +105,8 @@ export default function HeaderClient({
             <button
               className={`nav-link flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm transition-colors ${
                 pathname.startsWith("/services")
-                  ? "nav-link-active text-zinc-100 bg-white/[0.07]"
-                  : "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]"
+                  ? "nav-link-active text-zinc-100"
+                  : "text-zinc-400 hover:text-zinc-100"
               }`}
             >
               Services
