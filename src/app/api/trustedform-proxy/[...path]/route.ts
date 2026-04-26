@@ -5,10 +5,12 @@ import { getProxyAgent } from "@/lib/leadsProxy";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// Note: we deliberately PRESERVE Origin and Referer when forwarding to
+// api.trustedform.com so ActiveProspect can match the cert back to our
+// verified domain (agenciacord.com) and auto-retain. Stripping them was
+// the reason auto-retain wasn't firing in production.
 const STRIPPED_REQUEST_HEADERS = new Set([
   "host",
-  "origin",
-  "referer",
   "content-length",
   "connection",
   "x-forwarded-for",
