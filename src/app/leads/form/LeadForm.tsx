@@ -239,7 +239,7 @@ export default function LeadForm({
 
       <form
         onSubmit={handleSubmit}
-        className="p-8 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-5"
+        className="p-6 sm:p-7 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-4"
       >
         {(msaSlug || stateCode) && (
           <div className="flex items-center justify-between gap-3 -mt-1 -mb-1">
@@ -258,8 +258,8 @@ export default function LeadForm({
           </div>
         )}
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-zinc-400">
               First Name <span className="text-brand-light">*</span>
             </label>
@@ -272,7 +272,7 @@ export default function LeadForm({
               className="form-input"
             />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-zinc-400">
               Last Name <span className="text-brand-light">*</span>
             </label>
@@ -287,8 +287,8 @@ export default function LeadForm({
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
+        <div className="grid sm:grid-cols-2 gap-3">
+          <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-zinc-400">
               Age <span className="text-brand-light">*</span>
             </label>
@@ -302,7 +302,7 @@ export default function LeadForm({
               className="form-input"
             />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="text-xs font-semibold text-zinc-400">
               ZIP Code <span className="text-brand-light">*</span>
             </label>
@@ -321,7 +321,7 @@ export default function LeadForm({
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-zinc-400">
             Contact Number <span className="text-brand-light">*</span>
           </label>
@@ -335,13 +335,13 @@ export default function LeadForm({
           />
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
           <label className="text-xs font-semibold text-zinc-400">
             Interested in services <span className="text-brand-light">*</span>
           </label>
           <textarea
             name="interest"
-            rows={4}
+            rows={2}
             required
             placeholder="Tell us what you're looking for..."
             className="form-input"

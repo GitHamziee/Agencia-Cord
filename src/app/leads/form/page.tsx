@@ -21,7 +21,7 @@ export default async function LeadsFormPage({
 
   return (
     <div className="pt-16">
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         <div className="dot-grid absolute inset-0" />
         <div
           className="absolute inset-0 pointer-events-none"
@@ -33,7 +33,7 @@ export default async function LeadsFormPage({
         <div className="glow-blob w-[400px] h-[400px] bg-brand/[0.08] -top-10 right-1/4" />
 
         <div className="relative max-w-3xl mx-auto px-6">
-          <div className="mb-10">
+          <div className="mb-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-6">
               Step 2 of 2
               {resolution?.msa && (
@@ -54,7 +54,7 @@ export default async function LeadsFormPage({
                 </>
               )}
             </div>
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight mb-4">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight mb-3">
               <span className="gradient-text-white">Tell us about</span>{" "}
               <span className="gradient-text">yourself.</span>
             </h1>
