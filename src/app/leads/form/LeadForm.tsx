@@ -3,8 +3,7 @@
 import { useState } from "react";
 import Script from "next/script";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, MapPin } from "lucide-react";
 
 type SubmitResult = {
   ok: boolean;
@@ -13,10 +12,23 @@ type SubmitResult = {
   sheetError: string | null;
 };
 
-export default function LeadForm() {
-  const searchParams = useSearchParams();
-  const zip = (searchParams.get("zip") || "").trim();
+type Props = {
+  zip: string;
+  msaSlug: string;
+  iproyalCity: string;
+  stateSlug: string;
+  stateCode: string;
+  zipCity: string;
+};
 
+export default function LeadForm({
+  zip,
+  msaSlug,
+  iproyalCity,
+  stateSlug,
+  stateCode,
+  zipCity,
+}: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -28,11 +40,11 @@ export default function LeadForm() {
 
     const formEl = e.currentTarget;
 
-    // Wait for TrustedForm to populate xxTrustedFormCertUrl (up to 12s)
+    // Wait up to 30s for TrustedForm to populate xxTrustedFormCertUrl.
     const certInput = formEl.querySelector<HTMLInputElement>(
       'input[name="xxTrustedFormCertUrl"]'
     );
-    const deadline = Date.now() + 12000;
+    const deadline = Date.now() + 30000;
     while (certInput && !certInput.value && Date.now() < deadline) {
       await new Promise((r) => setTimeout(r, 250));
     }
@@ -41,7 +53,12 @@ export default function LeadForm() {
     const payload: Record<string, FormDataEntryValue> = Object.fromEntries(
       fd.entries()
     );
-    payload.zip = (payload.zip as string) || zip;
+    payload.zip = zip || (payload.zip as string);
+    payload.msaSlug = msaSlug;
+    payload.iproyalCity = iproyalCity;
+    payload.stateSlug = stateSlug;
+    payload.stateCode = stateCode;
+    payload.zipCity = zipCity;
 
     try {
       const res = await fetch("/api/leads/submit", {
@@ -114,7 +131,6 @@ export default function LeadForm() {
             }
             return headers;
           }
-          // Intercept fetch
           var origFetch = window.fetch;
           window.fetch = function(input, init) {
             var url = input instanceof Request ? input.url : String(input);
@@ -158,7 +174,6 @@ export default function LeadForm() {
               }).then(resolve).catch(reject);
             });
           };
-          // Intercept XMLHttpRequest
           var OrigXHR = window.XMLHttpRequest;
           window.XMLHttpRequest = function() {
             var xhr = new OrigXHR();
@@ -177,17 +192,16 @@ export default function LeadForm() {
                 return originalSend.call(self, body);
               }
               self.abort();
-              var proxyPayload = {
-                url: _url,
-                method: _method,
-                headers: {},
-                data: body,
-                state: formSlug
-              };
               origFetch('/api/trustedform-proxy', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(proxyPayload)
+                body: JSON.stringify({
+                  url: _url,
+                  method: _method,
+                  headers: {},
+                  data: body,
+                  zip: formZip
+                })
               }).then(function(proxyRes) {
                 Object.defineProperty(self, 'readyState', { value: 4, writable: true });
                 Object.defineProperty(self, 'status', { value: proxyRes.status, writable: true });
@@ -227,9 +241,20 @@ export default function LeadForm() {
         onSubmit={handleSubmit}
         className="p-8 rounded-2xl border border-white/[0.07] bg-surface flex flex-col gap-5"
       >
-        {zip && (
-          <div className="text-xs font-semibold text-zinc-500">
-            ZIP: <span className="text-zinc-300">{zip}</span>
+        {(msaSlug || stateCode) && (
+          <div className="flex items-center justify-between gap-3 -mt-1 -mb-1">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3 py-1 text-xs font-semibold text-zinc-300">
+              <MapPin size={12} className="text-brand-light" />
+              {iproyalCity
+                ? `${iproyalCity.charAt(0).toUpperCase()}${iproyalCity.slice(1)}, ${stateCode}`
+                : `Statewide ${stateCode}`}
+            </div>
+            <Link
+              href="/leads"
+              className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-2"
+            >
+              Change ZIP
+            </Link>
           </div>
         )}
 
@@ -279,7 +304,7 @@ export default function LeadForm() {
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-zinc-400">
-              Zip Code <span className="text-brand-light">*</span>
+              ZIP Code <span className="text-brand-light">*</span>
             </label>
             <input
               name="zip"
@@ -287,6 +312,7 @@ export default function LeadForm() {
               inputMode="numeric"
               pattern="\d{5}"
               maxLength={10}
+              defaultValue={zip}
               required
               autoComplete="postal-code"
               placeholder="90210"

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
+import { MapPin } from "lucide-react";
 import LeadForm from "./LeadForm";
-import { lookupZip } from "@/lib/zipLookup";
+import { resolveZip } from "@/lib/zipToMetro";
 
 export const metadata = {
   title: "Get a Quote",
@@ -16,7 +17,8 @@ export default async function LeadsFormPage({
   const sp = await searchParams;
   const raw = Array.isArray(sp.zip) ? sp.zip[0] : sp.zip;
   const zip = (raw || "").trim();
-  const geo = zip ? await lookupZip(zip) : null;
+  const resolution = zip ? await resolveZip(zip) : null;
+
   return (
     <div className="pt-16">
       <section className="relative py-24 overflow-hidden">
@@ -34,11 +36,20 @@ export default async function LeadsFormPage({
           <div className="mb-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-6">
               Step 2 of 2
-              {geo && (
+              {resolution?.msa && (
                 <>
                   <span className="text-zinc-700">·</span>
+                  <MapPin size={12} className="text-brand-light" />
                   <span className="text-brand-light">
-                    {geo.city}, {geo.stateCode}
+                    {resolution.msa.principalCity}, {resolution.msa.stateCode}
+                  </span>
+                </>
+              )}
+              {resolution && resolution.fellBack && (
+                <>
+                  <span className="text-zinc-700">·</span>
+                  <span className="text-amber-400/80">
+                    Statewide service ({resolution.zipStateCode})
                   </span>
                 </>
               )}
@@ -48,7 +59,24 @@ export default async function LeadsFormPage({
               <span className="gradient-text">yourself.</span>
             </h1>
             <p className="text-zinc-400 leading-relaxed max-w-xl">
-              We&apos;ll match you with the right specialist within 24 hours.
+              {resolution?.msa ? (
+                <>
+                  Service area: <span className="text-zinc-300">{resolution.msa.title}</span>.
+                  Your ZIP <span className="text-zinc-300">{resolution.zip}</span> is in{" "}
+                  <span className="text-zinc-300">
+                    {resolution.zipCity}, {resolution.zipStateCode}
+                  </span>
+                  .
+                </>
+              ) : resolution ? (
+                <>
+                  Your ZIP <span className="text-zinc-300">{resolution.zip}</span>{" "}
+                  ({resolution.zipCity}, {resolution.zipStateCode}) is outside our
+                  metro coverage. We&apos;ll route via statewide service.
+                </>
+              ) : (
+                <>We&apos;ll match you with the right specialist within 24 hours.</>
+              )}
             </p>
           </div>
 
@@ -59,7 +87,19 @@ export default async function LeadsFormPage({
               </div>
             }
           >
-            <LeadForm />
+            <LeadForm
+              zip={resolution?.zip ?? zip ?? ""}
+              msaSlug={resolution?.msa?.slug ?? ""}
+              iproyalCity={resolution?.msa?.iproyalCity ?? ""}
+              stateSlug={
+                resolution?.msa?.stateSlug ??
+                (resolution?.zipStateCode
+                  ? resolution.zipStateCode.toLowerCase()
+                  : "")
+              }
+              stateCode={resolution?.msa?.stateCode ?? resolution?.zipStateCode ?? ""}
+              zipCity={resolution?.zipCity ?? ""}
+            />
           </Suspense>
         </div>
       </section>

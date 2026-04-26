@@ -6,6 +6,9 @@ export type Lead = {
   lastName: string;
   age: string;
   zip: string;
+  zipCity: string | null;
+  msaSlug: string | null;
+  servedCity: string | null; // The city used for iproyal targeting
   phone: string;
   interest: string;
   consent: boolean;

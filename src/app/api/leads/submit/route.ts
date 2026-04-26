@@ -1,26 +1,26 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { appendLeadToSheet, type Lead } from "@/lib/leadsSheet";
-import { lookupZip } from "@/lib/zipLookup";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const body = (await request.json()) as Record<string, unknown>;
-  const str = (k: string) => (typeof body[k] === "string" ? (body[k] as string) : "");
-
-  const zip = str("zip");
-  const geo = zip ? await lookupZip(zip) : null;
+  const str = (k: string) =>
+    typeof body[k] === "string" ? (body[k] as string) : "";
 
   const lead: Lead = {
     id: randomUUID(),
     receivedAt: new Date().toISOString(),
-    state: geo?.stateCode || str("state") || null,
+    state: str("stateCode") || null,
     firstName: str("firstName"),
     lastName: str("lastName"),
     age: str("age"),
     zip: str("zip"),
+    zipCity: str("zipCity") || null,
+    msaSlug: str("msaSlug") || null,
+    servedCity: str("iproyalCity") || null,
     phone: str("phone"),
     interest: str("interest"),
     consent: !!body.consent,
