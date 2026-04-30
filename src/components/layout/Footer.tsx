@@ -140,9 +140,6 @@ export default function Footer() {
             <Link href="/terms" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
               Terms of Service
             </Link>
-            <Link href="/sitemap.xml" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
-              Sitemap
-            </Link>
           </div>
         </div>
       </div>

@@ -49,8 +49,8 @@ export default function ContactPage() {
         <div className="glow-blob w-[400px] h-[400px] bg-brand/[0.08] -top-10 right-1/4" />
 
         <div className="relative max-w-7xl mx-auto px-6">
-          {/* Page header */}
-          <div className="max-w-2xl mb-16">
+          {/* Page header — centered */}
+          <div className="max-w-2xl mx-auto text-center mb-16">
             <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-8">
               Get In Touch
             </div>
@@ -59,7 +59,7 @@ export default function ContactPage() {
               <br />
               <span className="gradient-text">growth engine.</span>
             </h1>
-            <p className="animate-fade-in-up delay-200 text-lg text-zinc-400 leading-relaxed max-w-xl">
+            <p className="animate-fade-in-up delay-200 text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto">
               Fill out the form below and our team will reach out within 24 hours to
               schedule your free strategy session — no commitment required.
             </p>

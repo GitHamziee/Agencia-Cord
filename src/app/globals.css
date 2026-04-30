@@ -72,38 +72,57 @@
   --aurora-fade-bot: rgb(9 9 11 / 1);
 }
 
-/* ── LIGHT mode ──────────────────────────────────────────────────── */
+/* ── LIGHT mode ──────────────────────────────────────────────────────
+   Palette is built around the modern off-white-page / pure-white-card
+   hierarchy used by Linear, Vercel, Stripe, and Framer: the page bg is a
+   warm-neutral off-white, and cards elevate by being pure #fff above it.
+   Borders sit at 7-12% black alpha so they read as "drawn lines" rather
+   than visible stripes, and shadows do the heavy lifting for depth.
+   ──────────────────────────────────────────────────────────────────── */
 [data-theme="light"] {
   color-scheme: light;
 
-  --color-bg: #eceef5;
-  --color-surface: #e2e5ee;
-  --color-surface-2: #d6dae4;
-  --color-surface-3: #c8ccd8;
+  --color-bg: #f4f4f5;            /* zinc-100 — off-white page with enough
+                                     chroma to anchor the eye, so pure-white
+                                     cards read as elevated rather than as
+                                     "the same thing" floating on white. */
+  --color-surface: #ffffff;       /* cards — lighter than bg, true white */
+  --color-surface-2: #e4e4e7;     /* nested wells, hover rows */
+  --color-surface-3: #d4d4d8;     /* deepest surface */
 
   --color-fg: #09090b;
   --color-fg-muted: #3f3f46;
-  --color-fg-subtle: #52525b;
+  --color-fg-subtle: #71717a;
 
-  --color-border: rgb(9 9 11 / 0.14);
-  --color-border-strong: rgb(9 9 11 / 0.24);
+  --color-border: rgb(9 9 11 / 0.07);
+  --color-border-strong: rgb(9 9 11 / 0.12);
 
-  --overlay-low: rgb(9 9 11 / 0.045);
-  --overlay-mid: rgb(9 9 11 / 0.08);
-  --overlay-high: rgb(9 9 11 / 0.12);
+  --overlay-low:  rgb(9 9 11 / 0.025);
+  --overlay-mid:  rgb(9 9 11 / 0.05);
+  --overlay-high: rgb(9 9 11 / 0.08);
 
-  --shadow-card: 0 16px 40px -14px rgb(20 20 32 / 0.18);
-  --shadow-panel: 0 24px 64px rgb(20 20 32 / 0.18);
+  /* Soft, cool-undertone elevation — closer to Linear/Vercel than the
+     muddy warm shadow that comes from a flat dark color at high opacity. */
+  --shadow-card:
+    0 1px 2px rgb(20 20 32 / 0.04),
+    0 8px 24px -10px rgb(20 20 32 / 0.10);
+  --shadow-panel:
+    0 4px 8px rgb(20 20 32 / 0.04),
+    0 24px 48px -16px rgb(20 20 32 / 0.14);
 
-  --selection-bg: rgb(79 70 229 / 0.22);
-  --selection-fg: #0b0b12;
+  --selection-bg: rgb(79 70 229 / 0.18);
+  --selection-fg: #09090b;
 
-  --scrollbar-thumb: #bfbfc8;
+  --scrollbar-thumb: #d4d4d8;
 
-  --stroke-tint: rgb(9 9 11 / 0.38);
+  /* Drives text-outline, dot-grid, line-grid. On the previous near-white bg
+     a low-alpha stroke melted away — pushed to 0.55 so the outlined hero
+     headline ("You close deals.") reads as a real drawn stroke and the
+     dot-grid registers as texture rather than disappearing. */
+  --stroke-tint: rgb(9 9 11 / 0.55);
 
-  --aurora-fade-top: rgb(236 238 245 / 0);
-  --aurora-fade-bot: rgb(236 238 245 / 1);
+  --aurora-fade-top: rgb(244 244 245 / 0);
+  --aurora-fade-bot: rgb(244 244 245 / 1);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -129,23 +148,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Light-mode depth wash — soft cool tint so the page isn't a flat sheet
-   of one value. Two overlaid radial gradients give the eye somewhere to
-   rest without competing with content. */
-[data-theme="light"] body {
-  background-image:
-    radial-gradient(
-      ellipse 70% 55% at 85% 0%,
-      rgba(124, 58, 237, 0.10),
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 80% 50% at 0% 30%,
-      rgba(6, 182, 212, 0.06),
-      transparent 65%
-    );
-  background-attachment: fixed;
-}
+/* Light-mode page is intentionally flat off-white past the hero — the
+   hero's own aurora provides all the visual interest. We do NOT use a
+   `background-attachment: fixed` page wash here: that flag forces the
+   browser to repaint the gradient on every scroll frame, which was the
+   source of the hero-section lag in light mode. Modern light themes
+   (Linear, Vercel, Stripe) keep the page chrome clean for the same
+   perf reason and let surface elevation carry the design. */
 
 /* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar {
@@ -182,10 +191,10 @@ body {
 [data-theme="light"] .text-zinc-50  { color: #09090b; }
 [data-theme="light"] .text-zinc-100 { color: #18181b; }
 [data-theme="light"] .text-zinc-200 { color: #27272a; }
-[data-theme="light"] .text-zinc-300 { color: #2e2e33; }
-[data-theme="light"] .text-zinc-400 { color: #3f3f46; }
-[data-theme="light"] .text-zinc-500 { color: #52525b; }
-[data-theme="light"] .text-zinc-600 { color: #6b6b75; }
+[data-theme="light"] .text-zinc-300 { color: #3f3f46; }
+[data-theme="light"] .text-zinc-400 { color: #52525b; }
+[data-theme="light"] .text-zinc-500 { color: #71717a; }
+[data-theme="light"] .text-zinc-600 { color: #8a8a93; }
 
 /* Brand accents (learn-more links, badges). #818cf8 is pale on white. */
 [data-theme="light"] .text-brand-light { color: #4f46e5; }
@@ -206,52 +215,62 @@ body {
 /* Placeholder colors inside inputs */
 [data-theme="light"] ::placeholder { color: #a1a1aa; }
 
-/* White/alpha backgrounds → darker black/alpha equivalents in light (more visible tiles) */
+/* White/alpha backgrounds → very subtle black/alpha tints. With pure white
+   cards on an off-white page, these need to be lighter than they were on
+   the old gray bg — at 6%+ alpha they read as muddy patches rather than
+   the gentle frosting they're meant to be. */
 [data-theme="light"] [class*="bg-white/"] {
   background-color: var(--overlay-low);
 }
-[data-theme="light"] .bg-white\/\[0\.015\] { background-color: rgb(9 9 11 / 0.03); }
-[data-theme="light"] .bg-white\/\[0\.03\]  { background-color: rgb(9 9 11 / 0.045); }
-[data-theme="light"] .bg-white\/\[0\.04\]  { background-color: rgb(9 9 11 / 0.055); }
-[data-theme="light"] .bg-white\/\[0\.05\]  { background-color: rgb(9 9 11 / 0.065); }
-[data-theme="light"] .bg-white\/\[0\.055\] { background-color: rgb(9 9 11 / 0.07); }
-[data-theme="light"] .bg-white\/\[0\.07\]  { background-color: rgb(9 9 11 / 0.085); }
-[data-theme="light"] .bg-white\/\[0\.08\]  { background-color: rgb(9 9 11 / 0.095); }
-[data-theme="light"] .bg-white\/\[0\.10\]  { background-color: rgb(9 9 11 / 0.11); }
+[data-theme="light"] .bg-white\/\[0\.015\] { background-color: rgb(9 9 11 / 0.018); }
+[data-theme="light"] .bg-white\/\[0\.03\]  { background-color: rgb(9 9 11 / 0.025); }
+[data-theme="light"] .bg-white\/\[0\.04\]  { background-color: rgb(9 9 11 / 0.03); }
+[data-theme="light"] .bg-white\/\[0\.05\]  { background-color: rgb(9 9 11 / 0.035); }
+[data-theme="light"] .bg-white\/\[0\.055\] { background-color: rgb(9 9 11 / 0.04); }
+[data-theme="light"] .bg-white\/\[0\.07\]  { background-color: rgb(9 9 11 / 0.05); }
+[data-theme="light"] .bg-white\/\[0\.08\]  { background-color: rgb(9 9 11 / 0.055); }
+[data-theme="light"] .bg-white\/\[0\.10\]  { background-color: rgb(9 9 11 / 0.07); }
 
-/* White/alpha borders → darker black/alpha for visible card outlines */
+/* White/alpha borders → soft black/alpha. Modern light UI sits at ~7-12%
+   black alpha (Linear, Vercel). Higher than that reads as drawn lines. */
 [data-theme="light"] [class*="border-white/"] {
   border-color: var(--color-border);
 }
-[data-theme="light"] .border-white\/\[0\.055\] { border-color: rgb(9 9 11 / 0.13); }
-[data-theme="light"] .border-white\/\[0\.06\]  { border-color: rgb(9 9 11 / 0.13); }
-[data-theme="light"] .border-white\/\[0\.07\]  { border-color: rgb(9 9 11 / 0.14); }
-[data-theme="light"] .border-white\/\[0\.08\]  { border-color: rgb(9 9 11 / 0.15); }
-[data-theme="light"] .border-white\/\[0\.09\]  { border-color: rgb(9 9 11 / 0.16); }
-[data-theme="light"] .border-white\/\[0\.10\]  { border-color: rgb(9 9 11 / 0.17); }
-[data-theme="light"] .border-white\/\[0\.12\]  { border-color: rgb(9 9 11 / 0.20); }
-[data-theme="light"] .border-white\/\[0\.14\]  { border-color: rgb(9 9 11 / 0.22); }
-[data-theme="light"] .border-white\/\[0\.18\]  { border-color: rgb(9 9 11 / 0.26); }
-[data-theme="light"] .border-white\/\[0\.20\]  { border-color: rgb(9 9 11 / 0.28); }
+[data-theme="light"] .border-white\/\[0\.055\] { border-color: rgb(9 9 11 / 0.06); }
+[data-theme="light"] .border-white\/\[0\.06\]  { border-color: rgb(9 9 11 / 0.07); }
+[data-theme="light"] .border-white\/\[0\.07\]  { border-color: rgb(9 9 11 / 0.08); }
+[data-theme="light"] .border-white\/\[0\.08\]  { border-color: rgb(9 9 11 / 0.09); }
+[data-theme="light"] .border-white\/\[0\.09\]  { border-color: rgb(9 9 11 / 0.10); }
+[data-theme="light"] .border-white\/\[0\.10\]  { border-color: rgb(9 9 11 / 0.11); }
+[data-theme="light"] .border-white\/\[0\.12\]  { border-color: rgb(9 9 11 / 0.13); }
+[data-theme="light"] .border-white\/\[0\.14\]  { border-color: rgb(9 9 11 / 0.15); }
+[data-theme="light"] .border-white\/\[0\.18\]  { border-color: rgb(9 9 11 / 0.18); }
+[data-theme="light"] .border-white\/\[0\.20\]  { border-color: rgb(9 9 11 / 0.20); }
 
-/* Surface w/ alpha (dropdowns, soft section shading) — use surface token.
+/* Surface w/ alpha (dropdowns, soft section shading). With surface = #fff
+   we layer near-white over the off-white page — preserves the frosted-
+   panel feel from dark mode while staying clean on white.
    Note: .bg-bg/88 (header) gets a stronger rule further below so it's fully
    opaque and drops backdrop-blur, avoiding aurora bleed-through. */
-[data-theme="light"] .bg-surface\/30   { background-color: rgb(243 243 247 / 0.65); }
-[data-theme="light"] .bg-surface\/40   { background-color: rgb(243 243 247 / 0.75); }
-[data-theme="light"] .bg-surface\/80   { background-color: rgb(243 243 247 / 0.92); }
-[data-theme="light"] .bg-surface\/96   { background-color: rgb(243 243 247 / 0.98); }
-[data-theme="light"] .bg-surface\/97   { background-color: rgb(243 243 247 / 0.98); }
+[data-theme="light"] .bg-surface\/30   { background-color: rgb(255 255 255 / 0.55); }
+[data-theme="light"] .bg-surface\/40   { background-color: rgb(255 255 255 / 0.7);  }
+[data-theme="light"] .bg-surface\/80   { background-color: rgb(255 255 255 / 0.9);  }
+[data-theme="light"] .bg-surface\/96   { background-color: rgb(255 255 255 / 0.98); }
+[data-theme="light"] .bg-surface\/97   { background-color: rgb(255 255 255 / 0.98); }
 
-/* Aurora + glow blobs are calibrated for dark bg; soften on light bg, but
-   keep enough presence that the hero doesn't read as empty. */
-[data-theme="light"] .aurora-layer { opacity: 0.38; }
-[data-theme="light"] .glow-blob    { opacity: 0.55; }
+/* Aurora + glow blobs are calibrated for dark bg.
+   - Aurora colors are now soft pastels (see hero-aurora vars below) so we
+     can hold a slightly higher opacity without feeling gaudy.
+   - Glow blobs in dark mode rely on bright tints punching through; on
+     white those same tints wash out, so we bump opacity hard to keep
+     the brand-color halos legible. */
+[data-theme="light"] .aurora-layer { opacity: 0.7; }
+[data-theme="light"] .glow-blob    { opacity: 1; }
 
 /* Header: drop backdrop-blur in light mode so the navbar stops averaging
    aurora colors from behind, and make the overlay fully opaque. */
 [data-theme="light"] .bg-bg\/88 {
-  background-color: #eceef5;
+  background-color: #f4f4f5;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
@@ -276,11 +295,11 @@ body {
     0 10px 30px -12px rgb(0 0 0 / 0.55);
 }
 [data-theme="light"] .nav-shell-scrolled {
-  background-color: rgb(236 238 245 / 0.92);
+  background-color: rgb(244 244 245 / 0.85);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgb(9 9 11 / 0.08);
-  box-shadow: 0 6px 22px -12px rgb(20 20 32 / 0.16);
+  border-bottom: 1px solid rgb(9 9 11 / 0.06);
+  box-shadow: 0 6px 22px -12px rgb(20 20 32 / 0.10);
 }
 
 /* Active nav-link: a short gradient bar under the pill */
@@ -339,7 +358,10 @@ body {
 
 /* Gradient text that uses pure white → use fg so it still reads */
 [data-theme="light"] .gradient-text-white {
-  background: linear-gradient(180deg, #09090b 0%, rgb(9 9 11 / 0.68) 100%);
+  /* Deepened second stop (0.68 → 0.85) so headlines hold their weight on
+     the bright bg — the previous fade made the bottom of multi-line
+     headlines look washed out. */
+  background: linear-gradient(180deg, #09090b 0%, rgb(9 9 11 / 0.85) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -447,8 +469,8 @@ body {
 [data-theme="light"] .orbital-backlight {
   background: radial-gradient(
     circle,
-    rgba(79, 70, 229, 0.28) 0%,
-    rgba(124, 58, 237, 0.14) 45%,
+    rgba(79, 70, 229, 0.34) 0%,
+    rgba(124, 58, 237, 0.18) 45%,
     transparent 72%
   );
 }
@@ -456,6 +478,15 @@ body {
 /* Core glow fill inside the hero orbital SVG — keep readable on the
    deeper light bg without going full-saturated purple. */
 [data-theme="light"] .orbital-core-glow { opacity: 0.55; }
+
+/* Orbital ring strokes use a pale indigo→violet→cyan gradient calibrated
+   for a near-black bg. On light bg the gradient stops fade out. Override
+   the strokes (every fill="none" circle) with a solid mid-tone indigo —
+   cleaner than the gradient on white, and visible. */
+[data-theme="light"] .orbital-rings circle[fill="none"] {
+  stroke: #4f46e5;
+  stroke-opacity: 0.45;
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    KEYFRAMES
@@ -697,9 +728,14 @@ body {
   --hero-aurora-c3: #06b6d4;
 }
 [data-theme="light"] {
-  --hero-aurora-c1: #a855f7;
-  --hero-aurora-c2: #ec4899;
-  --hero-aurora-c3: #f59e0b;
+  /* Mid-tone family of the brand — full pastels (indigo-300/violet-300/
+     cyan-200) read as wispy on a light bg and rob the hero of presence.
+     These mid-tones (indigo-400 / violet-400 / cyan-300) keep the same
+     harmony but bloom with enough saturation that the aurora reads as
+     a real backdrop, not a watercolor. */
+  --hero-aurora-c1: #818cf8;
+  --hero-aurora-c2: #c084fc;
+  --hero-aurora-c3: #67e8f9;
 }
 [data-theme="light"] .hero-aurora .aurora-layer {
   animation: none;

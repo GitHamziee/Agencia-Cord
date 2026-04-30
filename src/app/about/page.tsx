@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Users, Award, TrendingUp, Globe } from "lucide-react";
+import { ArrowRight, Users, Award, TrendingUp, Globe, MapPin } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import { siteConfig } from "@/lib/siteConfig";
+
+const verticals = [
+  "Solar",
+  "Roofing",
+  "Real Estate",
+  "Home Improvement",
+  "Medicare",
+  "Final Expense",
+  "Call Centers",
+  "Web Dev",
+  "Lead Gen",
+];
 
 export const metadata: Metadata = {
   title: "About",
@@ -50,34 +64,109 @@ export default function AboutPage() {
         />
         <div className="glow-blob w-[500px] h-[500px] bg-brand/[0.08] -top-20 left-1/2 -translate-x-1/2" />
 
-        <div className="relative max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-8">
-              Our Story
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
+            {/* ── Left: copy + stats ── */}
+            <div>
+              <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-white/[0.07] bg-white/[0.03] px-3.5 py-1 text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-8">
+                Our Story
+              </div>
+              <h1 className="animate-fade-in-up delay-100 text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] mb-8">
+                <span className="gradient-text-white">Built by marketers.</span>
+                <br />
+                <span className="gradient-text">Powered by data.</span>
+              </h1>
+              <p className="animate-fade-in-up delay-200 text-xl text-zinc-400 leading-relaxed mb-12 max-w-2xl">
+                Agencia Cord was founded on a simple belief: businesses deserve a marketing
+                partner as invested in their success as they are. We built the agency we
+                always wished existed.
+              </p>
+              <div className="animate-fade-in-up delay-300 flex flex-wrap gap-10">
+                {[
+                  { value: "2019", label: "Founded" },
+                  { value: "1,200+", label: "Clients" },
+                  { value: "$40M+", label: "Revenue Generated" },
+                  { value: "9", label: "Verticals" },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-3xl font-black gradient-text mb-1">{stat.value}</div>
+                    <div className="text-xs text-zinc-500">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <h1 className="animate-fade-in-up delay-100 text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] mb-8">
-              <span className="gradient-text-white">Built by marketers.</span>
-              <br />
-              <span className="gradient-text">Powered by data.</span>
-            </h1>
-            <p className="animate-fade-in-up delay-200 text-xl text-zinc-400 leading-relaxed mb-12 max-w-2xl">
-              Agencia Cord was founded on a simple belief: businesses deserve a marketing
-              partner as invested in their success as they are. We built the agency we
-              always wished existed.
-            </p>
-            <div className="animate-fade-in-up delay-300 flex flex-wrap gap-10">
-              {[
-                { value: "2019", label: "Founded" },
-                { value: "1,200+", label: "Clients" },
-                { value: "$40M+", label: "Revenue Generated" },
-                { value: "9", label: "Verticals" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-3xl font-black gradient-text mb-1">{stat.value}</div>
-                  <div className="text-xs text-zinc-500">{stat.label}</div>
+
+            {/* ── Right: company card ── */}
+            <AnimatedSection direction="right" delay={200} className="hidden lg:block">
+              <div className="relative">
+                {/* Brand halo behind card */}
+                <div className="absolute -inset-10 bg-brand/[0.18] blur-3xl rounded-full pointer-events-none" />
+                <div className="absolute -inset-16 bg-violet/[0.10] blur-3xl rounded-full pointer-events-none" />
+
+                <div className="relative rounded-3xl border border-white/[0.07] bg-surface p-7 shadow-[var(--shadow-panel)]">
+                  {/* Top: brand mark + name */}
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="relative w-12 h-12 flex-shrink-0 rounded-2xl bg-brand/[0.12] border border-brand/20 flex items-center justify-center overflow-hidden">
+                      <Image
+                        src={siteConfig.logo.src}
+                        alt={siteConfig.logo.alt}
+                        fill
+                        sizes="48px"
+                        className="object-contain p-2"
+                      />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="font-bold text-zinc-100 text-lg leading-tight truncate">
+                        {siteConfig.name}
+                      </div>
+                      <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mt-0.5">
+                        Premium Digital Agency
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Location + founded line */}
+                  <div className="flex items-center gap-2.5 text-sm text-zinc-400 pb-5 mb-5 border-b border-white/[0.07]">
+                    <MapPin size={14} className="text-brand-light flex-shrink-0" />
+                    <span className="truncate">
+                      {siteConfig.contact.addressShort} · Est. 2019
+                    </span>
+                  </div>
+
+                  {/* Verticals chips */}
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-3">
+                    Nine verticals
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {verticals.map((v) => (
+                      <span
+                        key={v}
+                        className="px-2.5 py-1 rounded-md text-[11px] font-medium text-zinc-300 bg-white/[0.04] border border-white/[0.07]"
+                      >
+                        {v}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Footer: live status pill */}
+                  <div className="flex items-center justify-between gap-3 pt-5 border-t border-white/[0.07]">
+                    <div className="inline-flex items-center gap-2 text-[11px] font-semibold text-emerald-400">
+                      <span className="relative flex w-1.5 h-1.5">
+                        <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                        <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      </span>
+                      Accepting clients
+                    </div>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-light hover:gap-2 transition-all"
+                    >
+                      Book a call <ArrowRight size={11} />
+                    </Link>
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </section>

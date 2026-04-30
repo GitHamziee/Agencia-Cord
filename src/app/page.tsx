@@ -51,7 +51,7 @@ export default function HomePage() {
   return (
     <div>
       {/* ════════════════ HERO ════════════════ */}
-      <section className="relative min-h-[100svh] flex items-start lg:items-center overflow-hidden pt-20 lg:pt-24">
+      <section className="relative lg:min-h-[100svh] flex items-start lg:items-center overflow-hidden pt-20 lg:pt-24">
         <div className="hero-aurora absolute inset-0 overflow-hidden">
           <div
             className="aurora-layer"
@@ -134,7 +134,7 @@ export default function HomePage() {
 
               <svg
                 viewBox="-240 -240 480 480"
-                className="relative w-full h-full"
+                className="orbital-rings relative w-full h-full"
                 aria-hidden="true"
               >
                 <defs>
