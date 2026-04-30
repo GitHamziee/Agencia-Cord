@@ -543,6 +543,21 @@ body {
   transform: translateX(0);
 }
 
+/* iOS Safari throttles IntersectionObserver during touch-scroll inertia,
+   leaving JS-gated reveal sections invisible for several seconds after
+   they enter the viewport. On any touch-primary device skip the reveal
+   animation entirely so sections render the moment they're scrolled into
+   view, regardless of IO callback timing. */
+@media (hover: none) and (pointer: coarse) {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    CARD HOVER
    ═══════════════════════════════════════════════════════════════════ */

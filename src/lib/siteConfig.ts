@@ -5,7 +5,10 @@
 
 export const siteConfig = {
   name: "Agencia Cord",
-  brand: "CORD",
+  /* Wordmark shown next to the logo in the header & footer. */
+  brand: "Agencia Cord",
+  /* Legal entity name — used for copyright lines, contracts, footer fine print. */
+  legalName: "Agencia Cord LLC",
 
   logo: {
     src: "/logo.png",

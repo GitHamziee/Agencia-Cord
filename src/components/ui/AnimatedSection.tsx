@@ -41,7 +41,11 @@ function getObserver(threshold: number): IntersectionObserver | null {
         }
       }
     },
-    { threshold }
+    /* rootMargin: trigger 200px before the element enters the viewport so
+       reveals fire during scroll inertia rather than after it stops. iOS
+       Safari is especially aggressive about deferring IO callbacks during
+       momentum-scroll, and a generous margin makes that delay invisible. */
+    { threshold, rootMargin: "0px 0px 200px 0px" }
   );
   observerCache.set(threshold, observer);
   return observer;
@@ -78,7 +82,25 @@ export default function AnimatedSection({
 
     if (delay) el.dataset.revealDelay = String(delay);
     observer.observe(el);
-    return () => observer.unobserve(el);
+
+    /* Belt-and-suspenders fallback: if the element is in or close to the
+       viewport but IO hasn't fired within ~700ms (iOS Safari can defer
+       callbacks for the duration of momentum-scroll), reveal it directly.
+       Cheap getBoundingClientRect read; runs once per element. */
+    const fallbackTimer = window.setTimeout(() => {
+      if (el.classList.contains("visible")) return;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.top < vh + 400 && rect.bottom > -200) {
+        el.classList.add("visible");
+        observer.unobserve(el);
+      }
+    }, 700);
+
+    return () => {
+      observer.unobserve(el);
+      window.clearTimeout(fallbackTimer);
+    };
   }, [delay, threshold]);
 
   const dirClass = { up: "reveal", left: "reveal-left", right: "reveal-right" }[direction];

@@ -131,7 +131,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/[0.055] flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} Agencia Cord. All rights reserved.
+            © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" prefetch={false} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
